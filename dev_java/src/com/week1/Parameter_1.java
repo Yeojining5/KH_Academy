@@ -10,9 +10,9 @@ public class Parameter_1 {
 	}
 	public static void main(String[] args) {
 		Dog myDog = new Dog();
-		myDog.leg = 4;
-		methodA(myDog);
-		System.out.println(myDog.leg);
+		myDog.leg = 4; // 0 > 4
+		methodA(myDog); // 4 출력 > 메서드를 통과하면 값이 2로 변함
+		System.out.println(myDog.leg); // 2출력
 	}
 
 }
