@@ -7,6 +7,7 @@ public class Variable_1_1 {
 		// 변수 age앞에 int를 붙였으므로 지역변수를 새로 선언한 것이 됨
 		// 5번 라인에 선언된 변수와는 아무 상관 없음. 다만 이름만 같을 뿐임
 		int age = 30;
+		System.out.println(age); // 30
 	}// end of methodA
 	public static void main(String[] args) {
 		// 아래 코드가 메모리에 로딩 되면 5번 라인에 age변수도 생성되고 20으로 초기화됨

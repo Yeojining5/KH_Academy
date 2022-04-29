@@ -12,8 +12,8 @@ public class Variable_3 {
 	}
 	public static void main(String[] args) {
 		Variable_3 v1 = new Variable_3();
-		System.out.println("before : "+v1.age);
-		v1.methodA(50);
-		System.out.println("after : "+v1.age);		
+		System.out.println("before : "+v1.age); //20전역변수
+		v1.methodA(50); 
+		System.out.println("after : "+v1.age); //20전역변수	
 	}
 }

@@ -9,8 +9,7 @@ public class Variable_1 {
 		// 아래 코드에서 int를 붙이면 지역변수가 되고 int를 붙이지 않으면
 		// 전역변수에 저장된 값 20이 30으로 덮어쓰기 됨
 		int age = 30;
-		Variable_1 v1 = new Variable_1();
-		System.out.println("after : "+v1.age);//20
+		System.out.println("after : "+age);//20
 	}// end of methodA
 	// 14-15-16-5-18-19-7-11-12-21-22-23- 끝
 	public static void main(String[] args) {
@@ -19,7 +18,7 @@ public class Variable_1 {
 		// 아래 v1.age는 20이 출력됨 그러나 7번 메소드를 경유하면 11번에서 30으로 변경됨
 		System.out.println("before : "+v1.age);// 20이 출력됨
 		v1.methodA();// 이메소드를 경유하면 age가 30으로 변경됨
-		// 아래코드에서는 30이 출력됨	
+		// 아래코드에서는 전역변수 20 출력
 		System.out.println("after : "+v1.age);// 20	
 	}// end of main 
 }////// end of Variable_1
