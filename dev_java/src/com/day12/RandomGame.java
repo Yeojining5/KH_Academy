@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class RandomGame {
 	// 임의의 숫자를 채번하는 메소드를 제공하는 클래스임
-	public void gameStart() {
+	public static void gameStart() {
 		Random r = new Random () ; // 디폴트생성자 호출이 일어난다
 		// nextint 호출이다 (;으로 끝났으니까)
 		// nextint의 소유주는 Random 클래스이다 = Random 클래스안에 nextint 메소드가 정의되어 있다(역할이 정해져있음)
@@ -33,8 +33,7 @@ public class RandomGame {
 		} ///////////////////////////// while ended		
 	}////////// end of gameStart /////////////////////////
 	public static void main(String[] args) {
-		RandomGame rg = new RandomGame ();
-		rg.gameStart();
+		RandomGame.gameStart(); // gameStart메서드가  static 이기 때문에 인스턴스화없이 호출함
 	}//////////end of main ////////////////////////////////////////
 
 }
