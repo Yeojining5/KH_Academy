@@ -10,6 +10,7 @@ public class Quiz2 {
 		int jumsu[] = new int[5];
 		int rank[] = new int[5];
 		int sum = 0;
+		double avg = 0.0;
 		
 		for(int i=0;i<jumsu.length;i++) {
 			jumsu[i] = r.nextInt(101);
@@ -32,7 +33,7 @@ public class Quiz2 {
 		System.out.println("점수"+ (i+1)+" : "+jumsu[i]+ " (석차 : "+rank[i]+")");
 	}
 		System.out.println("총점 : "+sum);
-		double avg = sum / jumsu.length;
+		avg = (double) sum / jumsu.length; // int/int는 int값이 나오는데 double로 강제 형변환 하여 double값 출력
 		System.out.println("평균 : "+avg);
 		
 	}

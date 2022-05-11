@@ -39,11 +39,12 @@ public class NansuJumsu {
 			for(int j=0;j<jumsu.length;j++) {
 				if(jumsu[i] < jumsu[j]) {
 					rank[i]++;
+					System.out.println(rank[i]);
 				}
 			}
 		}
 		for(int rnk:rank) {
-			System.out.println(rnk);
+			System.out.println("순위 : "+rnk);
 		}
 		
 	} //////////////// end of main

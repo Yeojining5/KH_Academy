@@ -26,7 +26,7 @@ public class IntArray_1 {
 	} ////// end of arrayPrint
 
 	public static void main(String[] args) {
-		// 배열을 초기화 하는  initArray호출 또 초기화된 배열을 출력하는 arrayPrint호출
+		// 배열을 초기화 하는 initArray호출 또 초기화된 배열을 출력하는 arrayPrint호출
 		// 모두 생성자에서 처리되었다.
 		// 그래서 생성자 호출이 필요함.
 		new IntArray_1(); // new다음 클래스 이름이 와야함
