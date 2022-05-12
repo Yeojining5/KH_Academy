@@ -28,7 +28,7 @@ public class IntArray_2 {
 	public static void main(String[] args) {
 		// 인스턴스 변수를 재사용하지 않는 경우라면 아래처럼 해도 괜찮다.
 		// 메소드 호출을 생성자에서 하고 있잖아
-		new IntArray_1();
+		new IntArray_2();
 	}
 
 }
