@@ -19,6 +19,7 @@ public class TalkServerThread extends Thread {
 			ois = new ObjectInputStream (client.getInputStream());
 			//100#nickName) // 클라이언트에서 이렇게 넘어온다. (숫자는 정해진 역할이 있음)
 			String msg = (String)ois.readObject();
+			oos.writeObject(msg);
 			StringTokenizer st = new StringTokenizer(msg, "#");
 			st.nextToken(); // 100
 			nickName = st.nextToken();

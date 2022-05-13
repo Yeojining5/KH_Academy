@@ -3,11 +3,12 @@ package com.day18;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;​
-import javax.swing.JLabel;​
+import java.net.Socket;
+import javax.swing.JLabel;
+
 
 public class TimeClient extends Thread {
-	​
+	
 	private JLabel label;
 
 	public TimeClient() {
@@ -16,7 +17,7 @@ public class TimeClient extends Thread {
 	public TimeClient(JLabel label) {
 		System.out.println("label:" + label);
 		this.label = label;
-	}​
+	}
 
 	// run() 시작
 	public void run() {

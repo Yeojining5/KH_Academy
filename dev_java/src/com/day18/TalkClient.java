@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-​
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,7 +17,8 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-​
+
+
 public class TalkClient extends JFrame implements ActionListener {
 	////////////////통신과 관련한 전역변수 추가 시작//////////////
 	Socket 				socket 	= null;
@@ -78,6 +79,7 @@ public class TalkClient extends JFrame implements ActionListener {
 		tc.initDisplay();
 		tc.init();
 	}
+	
 	//소켓 관련 초기화
 	public void init() {
 		try {
@@ -90,8 +92,9 @@ public class TalkClient extends JFrame implements ActionListener {
 			//서버에게 내가 입장한 사실을 알린다.(말하기)
 			oos.writeObject(100+"#"+nickName);
 			//서버에 말을 한 후 들을 준비를 한다.
-			//TalkClientThread tct = new TalkClientThread(this);
-			//tct.start();
+			// 싱글스레드만 있으면 된다 - 이건 자바스크립트
+			TalkClientThread tct = new TalkClientThread(this);
+			tct.start();
 		} catch (Exception e) {
 			//예외가 발생했을 때 직접적인 원인되는 클래스명 출력하기
 			System.out.println(e.toString());
