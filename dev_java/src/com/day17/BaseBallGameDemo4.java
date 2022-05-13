@@ -3,6 +3,7 @@ package com.day17;
 import java.util.Scanner;
 
 public class BaseBallGameDemo4 {
+	// 파라미터를 String으로 한 이유, 화면에서 입역받을 때 숫자를 쳐도 문자열로 취급되기 때문 "245"
 	public String account(String input) {
 		System.out.println("사용자가 입력한 값 받아오기 : "+input);
 		// length : 배열의 원소개수
