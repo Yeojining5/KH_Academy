@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class TalkServer extends JFrame implements Runnable {
+	List<TalkServerThread> globalList = null; // 타입에 상관없이 모두 담을 수 있다.
 	ServerSocket server = null;
 	Socket client = null;
 	JTextArea jta_log = new JTextArea(10, 30);
@@ -20,6 +21,8 @@ public class TalkServer extends JFrame implements Runnable {
 	
 	@Override
 	public void run() {
+		// 자료구조, 컬렉션프레임워크 다이아몬드연산자 - 제네릭
+		globalList = new Vextor<>();
 		boolean isStop = false;
 		try {
 			// 서버측 컴터에 서버를 기동하기 위한 객체 생성하기 - 클라이언트의 접속만 받아준다.
