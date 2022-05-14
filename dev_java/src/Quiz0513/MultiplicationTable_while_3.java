@@ -1,19 +1,13 @@
 package Quiz0513;
-
+//구구단 중에서 시작단과 끝단을 입력받아서  출력하는 프로그램을 작성하시오.
+//메소드-파라미터 활용
 import java.util.Scanner;
 
 public class MultiplicationTable_while_3 {
-
-	Scanner scan = new Scanner(System.in);
-	int num1; // 시작단을 담을 변수 선언
-	int num2; // 끝단을 담을 변수 선언
 	
-	
-	public MultiplicationTable_while_3(int i, int j) {
-		multiply();
-	}
-	
-	public void multiply() {
+	public void multiply(int num1, int num2) {
+		
+		Scanner scan = new Scanner(System.in);
 		
 		System.out.println("구구단의 시작단을 입력하세요."); 
 		num1 = scan.nextInt(); // 입력받은 시작단을 num1에 저장
@@ -31,10 +25,12 @@ public class MultiplicationTable_while_3 {
 			}
 			i++;
 		} ///////////////////// end of while
-	}
+	} /////////////////////// end of method multiply
 
 	public static void main(String[] args) {
-		new MultiplicationTable_while_3 (1, 1);
-
+		MultiplicationTable_while_3 MT = new MultiplicationTable_while_3();
+		int num1 = 1; // 시작단을 담을 변수 선언
+		int num2 = 1; // 끝단을 담을 변수 선언
+		MT.multiply(num1, num2);
 	}
 }

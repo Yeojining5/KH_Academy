@@ -1,6 +1,6 @@
 package Quiz0513;
 // 구구단 중에서 시작단과 끝단을 입력받아서 출력하는 프로그램을 작성하시오.
-// 생성자 활용
+// 생성자 호출 활용
 import java.util.Scanner;
 
 public class MultiplicationTable_for_2 {
@@ -25,8 +25,8 @@ public MultiplicationTable_for_2() {
 			for (int j = 1; j <= 9; j++) {
 				System.out.println(i + "x" + j + "=" + (i * j));
 			}
-		}
-	}
+		} /////////////////// end of for
+	} /////////////////////// end of method multiply
 
 	public static void main(String[] args) {
 		new MultiplicationTable_for_2(); // 생성자 호출

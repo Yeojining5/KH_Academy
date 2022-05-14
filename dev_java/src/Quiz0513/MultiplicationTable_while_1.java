@@ -1,5 +1,6 @@
 package Quiz0513;
-
+//구구단 중에서 시작단과 끝단을 입력받아서 출력하는 프로그램을 작성하시오.
+//메소드 호출 활용
 import java.util.Scanner;
 
 public class MultiplicationTable_while_1 {
@@ -26,7 +27,7 @@ public class MultiplicationTable_while_1 {
 			}
 			i++;
 		} ///////////////////// end of while
-	}
+	} /////////////////////// end of method multiply
 
 	public static void main(String[] args) {
 		MultiplicationTable_while_1 mt = new MultiplicationTable_while_1();

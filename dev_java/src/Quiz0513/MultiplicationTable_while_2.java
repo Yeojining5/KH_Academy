@@ -31,7 +31,7 @@ public class MultiplicationTable_while_2 {
 			}
 			i++;
 		} ///////////////////// end of while
-	}
+	} /////////////////////// end of method multiply
 
 	public static void main(String[] args) {
 		new MultiplicationTable_while_2 ();

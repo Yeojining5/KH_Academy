@@ -21,8 +21,8 @@ public class MultiplicationTable_for_1 {
 			for (int j = 1; j <= 9; j++) {
 				System.out.println(i + "x" + j + "=" + (i * j));
 			}
-		}
-	}
+		} /////////////////// end of for
+	} /////////////////////// end of method multiply
 
 	public static void main(String[] args) {
 		MultiplicationTable_for_1 mt = new MultiplicationTable_for_1();
