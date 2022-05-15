@@ -1,6 +1,6 @@
 package Quiz0513;
 // 구구단 중에서 시작단과 끝단을 입력받아서 출력하는 프로그램을 작성하시오.
-// 생성자-파라미터 활용
+// for문 - 생성자-파라미터 활용
 import java.util.Scanner;
 
 public class MultiplicationTable_for_3 {
@@ -12,6 +12,7 @@ public class MultiplicationTable_for_3 {
 public MultiplicationTable_for_3(int num1, int num2) {
 	this.num1 = num1;
 	this.num2 = num2;
+	multiply();
 }
 	
 	public void multiply() {
@@ -30,8 +31,7 @@ public MultiplicationTable_for_3(int num1, int num2) {
 	} /////////////////////// end of method multiply
 
 	public static void main(String[] args) {
-		MultiplicationTable_for_3 MT = new MultiplicationTable_for_3(0,0);
-		MT.multiply();
+		new MultiplicationTable_for_3(1, 1);
 	}
 
 }
