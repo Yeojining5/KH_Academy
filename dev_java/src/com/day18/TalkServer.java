@@ -2,11 +2,14 @@ package com.day18;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
+//듣고 말하기, 들은 것을 말하기
+//서버가 대화내용을 정해서 말하지 않는다
 public class TalkServer extends JFrame implements Runnable {
 	List<TalkServerThread> globalList = null; // 타입에 상관없이 모두 담을 수 있다.
 	ServerSocket server = null;
