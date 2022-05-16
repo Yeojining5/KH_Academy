@@ -21,6 +21,7 @@ public class PositiveNegativeHap_2 {
 			nanSu[i] = (int) ((Math.random() * 21) - 10); // -9 ~ 10 포함 정수 출력
 			System.out.printf("%3d", nanSu[i]);
 			
+			
 			if (nanSu[i] < 0) {
 				negativeHap += nanSu[i];
 			} else {
