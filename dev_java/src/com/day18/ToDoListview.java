@@ -31,8 +31,6 @@ public class ToDoListview extends JFrame {
 	}
 	public static void main(String[] args) {
 		ToDoListview tv = new ToDoListview();
-		
-
 	}
 
 }
