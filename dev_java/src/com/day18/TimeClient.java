@@ -39,7 +39,7 @@ public class TimeClient extends Thread {
 			while(true) {
 				timeStr = ois.readObject().toString();
 			    System.out.println(timeStr);
-				label.setText(timeStr);
+				//label.setText(timeStr);
 				//Thread.yield();
 				try {
 					Thread.sleep(1000);
@@ -61,7 +61,8 @@ public class TimeClient extends Thread {
 
 	// run() 종료
 	public static void main(String args[]) {
+		// 여러 스레드가 중지 상태 혹은 준비상태에 있을 수 있어서 순서를 따진 후 실행되어야 한다.
 		TimeClient tc = new TimeClient();
-		tc.start();
+		tc.start(); // run() 호출이 된다. 
 		}
 }

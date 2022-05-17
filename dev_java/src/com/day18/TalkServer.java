@@ -25,7 +25,7 @@ public class TalkServer extends JFrame implements Runnable {
 	@Override
 	public void run() {
 		// 자료구조, 컬렉션프레임워크 다이아몬드연산자 - 제네릭
-		globalList = new Vextor<>();
+		globalList = new Vector<>();
 		boolean isStop = false;
 		try {
 			// 서버측 컴터에 서버를 기동하기 위한 객체 생성하기 - 클라이언트의 접속만 받아준다.

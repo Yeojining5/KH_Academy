@@ -1,7 +1,6 @@
 package com.day18;
 
-//TimeServer.java: 1초간격으로 현재의 시간 문자열을 접속한 클라이언트에게 전송하는 
-//프로그램
+//TimeServer.java: 1초간격으로 현재의 시간 문자열을 접속한 클라이언트에게 전송하는 프로그램
 import java.net.*;
 import java.io.*;
 import java.util.*;

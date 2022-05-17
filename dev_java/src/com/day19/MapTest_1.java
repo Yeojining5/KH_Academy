@@ -19,7 +19,7 @@ public class MapTest_1 {
 		printMap(); // 출력을 담당하는 메소드 호출
 	}
 	
-	public void printMap() {
+	public void printMap() { // keySet 활용
 		// 키값만을 추출할 때 사용한다.
 		Set<String> set = map.keySet();
 		// 키값이 세가지(mem_id, mem_pw, mem_name)이니까 배열에 담을 수 있다.
