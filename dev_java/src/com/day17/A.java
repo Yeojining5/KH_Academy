@@ -19,3 +19,5 @@ public class A {
 	}
 
 }
+// e.toString() 출력문
+// java.lang.ArithmeticException: / by zero

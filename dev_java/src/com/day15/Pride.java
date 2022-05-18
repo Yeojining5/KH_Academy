@@ -1,7 +1,6 @@
 package com.day15;
 // Pride를 MoveBehavior 인터페이스의 구현체 클래스라고 말할 수 있다.
 
-
 // 추상메소드는 세미콜론으로 끝난다
 // run이라는 메소드는 좌중괄호, 우중괄호가 있는 것 만으로도 구현이다.
 public class Pride implements MoveBehavior {

@@ -3,12 +3,13 @@ package com.day20;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
+// FileWriter 클래스는 문자열을 파일에 출력할 때 사용. txt파일에 저장
 public class FileTest_1 {
 // API > java.io > [Classes] FilterWriter
 	public static void main(String[] args) {
 		FileWriter fw = null;
 		try {
+			// new FileWriter("파일경로")
 			fw = new FileWriter("C:\\Users\\user\\git\\Yeojin\\dev_java\\src\\com\\day20\\log.txt", true);
 			fw.write(65); // 아스키코드 A
 			fw.write(97); // 아스키코드 a
@@ -30,7 +31,7 @@ public class FileTest_1 {
 			} catch (Exception e2) {
 				// TODO: handle exception
 			}
-		} ////////////// end of fianlly
+		} ////////////// end of finally
 	} /////////// end of main
 
 }
