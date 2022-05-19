@@ -3,7 +3,9 @@ package com.day20;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
+// List구조는 index로 접근하고 순차적이다 (정렬 - 2차 가공이 필요 - 속도가 느림)
+// 1조가 넘는 메시지를 서버 매 초마다 밀어낸다.
+// Map은 빈자리가 있으면 넣는다
 public class MapTest_3 {
 
 	Map<String, String> map = new HashMap<>();
