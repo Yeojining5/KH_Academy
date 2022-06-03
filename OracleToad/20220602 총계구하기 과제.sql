@@ -38,3 +38,20 @@ GROUP BY ROLLUP(indate_vc)
 GROUP BY ROLLUP (indate_vc)
 
 
+---------------------------------
+ 
+ SELECT ROWNUM rno FROM dept
+  WHERE ROWNUM < 3
+
+
+SELECT decode(b.rno, 1, indate_vc, 2, '총계') AS "판매날짜"         
+       ,SUM(qty_nu)||'개' AS "판매개수"
+       ,SUM(qty_nu * price_nu)||'원' AS "판매가격"
+  FROM t_orderbasket,
+       (
+        SELECT ROWNUM rno FROM dept
+         WHERE ROWNUM < 3
+       )b
+ GROUP BY decode(b.rno, 1, indate_vc, 2, '총계')
+ ORDER BY "판매날짜"
+ 
