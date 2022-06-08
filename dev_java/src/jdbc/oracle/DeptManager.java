@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 public class DeptManager extends JFrame implements ActionListener {
 	public final String _DRIVER = "oracle.jdbc.driver.OracleDriver";
 	public final String _URL = "jdbc:oracle:thin:@192.168.0.4:1521:orcl11";
+	// 서버에 아무나 접속하지 못하도록 인증과정을 위한 아이디와 비번
 	public final String _USER = "scott";
 	public final String _PW = "tiger";
 	
@@ -44,6 +45,7 @@ public class DeptManager extends JFrame implements ActionListener {
 			// 파라미터로 받은 select문을 전달
 			pstmt = con.prepareStatement(sql);
 			// 전달된 select문에 대한 처리를 요청하고 커서 받아내기
+			// 결과 데이터 테이블이 있다면 이를 한번에 받을 수 있는게 아니라 레코드 단위로 하나씩 받을 수 있음
 			rs = pstmt.executeQuery();
 			deptList = new ArrayList<>();
 			Map<String, Object> rmap = null;

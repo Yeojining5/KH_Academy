@@ -21,7 +21,7 @@ public class Initialization_6 {
 
 	public static void main(String[] args) {
 		Initialization_7 i3 = new Initialization_7 ();
-		i3.account1();
+		i3.account();
 
 	}
 

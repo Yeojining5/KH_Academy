@@ -25,7 +25,7 @@ public class Dialog_3 extends JDialog implements ActionListener{
       jbtn_save.addActionListener(this);
       initDisplay(); // 추가함 - 중요!
    }
-`   public void initDisplay() {
+   public void initDisplay() {
       jp_north.add(jbtn_save);
       this.add("North", jp_north);
       this.add("Center",jsp);

@@ -57,15 +57,15 @@ public class Main_3 extends JFrame implements ActionListener{
       if(btnInsert == obj) {
     	  // 자손 클래스에서 부모클래스의 refreshData메소드를 호출하고 싶어요
     	  // 그래서 this를 자손클래스의 set메소드의 파라미터로 넘겨주자
-         dialog.set("입력", true); // 파라미터로 String 값을 넘김
+         dialog.set("입력", true, this); // 파라미터로 String 값을 넘김
          //dialog.initDisplay();
       }
       else if(btnUpdate == obj) {
-         dialog.set("수정", true);
+         dialog.set("수정", true, this);
          //dialog.initDisplay(); >> Dialog_3에 추가함
       }
       else if(btnDetail == obj) {
-         dialog.set("상세조회", true);
+         dialog.set("상세조회", true, this);
          //dialog.initDisplay();
       }
    }

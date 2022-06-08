@@ -31,7 +31,7 @@ public class JButtonTest_2 implements ActionListener{
 		jbtn_north = null;
 		// 새로운 주소번지를 갖는다
 		jbtn_north = new JButton("입력");
-		jbtn_north.setBackground(Color.cyan);
+		jbtn_north.setBackground(Color.LIGHT_GRAY);
 		jf.add("North", jbtn_north);
 		jf.revalidate();
 		return  isOk;

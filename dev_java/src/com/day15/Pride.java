@@ -3,7 +3,7 @@ package com.day15;
 
 // 추상메소드는 세미콜론으로 끝난다
 // run이라는 메소드는 좌중괄호, 우중괄호가 있는 것 만으로도 구현이다.
-public class Pride implements MoveBehavior {
+public class Pride extends Car implements MoveBehavior {
 	// run이라는 메소드는 좌중괄호, 우중괄호가 있는 것 만으로 구현이다.
 	// MoveBehavior 인터페이스에 선언된 추상메소드를 재정의함
 	@Override
