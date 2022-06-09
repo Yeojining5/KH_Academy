@@ -18,6 +18,8 @@ public class JDBCTest {
 		PreparedStatement pstmt = null;   // import
 		// 조회결과를 받아서 자바에서 출력할 때 오라클에 커서를 조작해야 함.
 		ResultSet           rs = null;    // import
+		
+		
 		String sql = "SELECT deptno, dname, loc From dept";
 		
 		try {

@@ -29,12 +29,14 @@ public class DeptManager extends JFrame implements ActionListener {
 	ResultSet           rs = null;    // import
 	String sql = "SELECT deptno, dname, loc From dept";
 	JButton jbtn_select = new JButton("조회");
+	
 	public DeptManager () {
 		// 이벤트 처리를 담당하는 핸들러 클래스의 주소번지 
 		// 내안에 actionPerformed 메소드가 재정의 되어있다면 this
 		jbtn_select.addActionListener(this);
 		initDisplay (); //화면 그리기
 	}
+	
 	public List<Map<String,Object>> getDeptList() {
 		List<Map<String,Object>> deptList = null;
 		try {
