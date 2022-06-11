@@ -1,8 +1,6 @@
 package ajdbc.crud;
 
-import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -17,7 +15,6 @@ import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,9 +26,8 @@ import ajdbc.zipcode.DBConnectionMgr;
 import oracle.vo.DeptVO;
 
 
-public class CRUDDept extends JFrame implements ActionListener {
+public class CRUDDept2 extends JFrame implements ActionListener {
 	// 선언부
-	
 	////////////////// DB연동 /////////////////
 	Connection   con        = null;
 	PreparedStatement pstmt = null;
@@ -52,14 +48,14 @@ public class CRUDDept extends JFrame implements ActionListener {
 	JTable		jtb 		= new JTable(dtm); // 데이터셋을 파라미터로 넘김
 	JScrollPane jsp			= new JScrollPane(jtb);
 	
-	JPanel jp_south         = new JPanel(); // 디폴트레이아웃 : FlowLayout
-	JTextField  jtf_deptno  = new JTextField("",5);
-	JTextField  jtf_dname   = new JTextField("",8);
-	JTextField  jtf_loc     = new JTextField("",8);
+	JPanel      jp_south    = new JPanel(); // 디폴트레이아웃 : FlowLayout
+	JTextField  jtf_deptno  = new JTextField("",10);
+	JTextField  jtf_dname   = new JTextField("",20);
+	JTextField  jtf_loc     = new JTextField("",20);
 	
 	
 	///////////////////////////////////////// 생성자
-	public CRUDDept () {
+	public CRUDDept2 () {
 		jbtn_sel.addActionListener(this);
 		jbtn_ins.addActionListener(this);
 		jbtn_upd.addActionListener(this);
@@ -80,11 +76,9 @@ public class CRUDDept extends JFrame implements ActionListener {
 		int result = 0;
 		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO dept(deptno, dname, loc) VALUES(?,?,?)");
-		
 		try {
 			con = dbMgr.getConnection();
 			pstmt = con.prepareStatement(sql.toString());
-			
 			int i = 0;
 			pstmt.setInt(++i, pdVO.getDeptno());
 			pstmt.setString(++i, pdVO.getDname());
@@ -108,11 +102,9 @@ public class CRUDDept extends JFrame implements ActionListener {
 	}
 	
 	
-	
 	/**************************************************************************
 	 * 부서 수정 구현
 	 * @param pdVO - 사용자가 입력한 부서번호, 부서명, 지역을 받는다 - 복합데이터 클래스(한꺼번에 3개를 받아옴)
-	 * @param selection 
 	 * @return int - 1 : 등록 성공 / 0 : 등록 실패
 	 * UPDATE dept
 		  set dname = '개발2팀', loc = '거제도'
@@ -122,36 +114,8 @@ public class CRUDDept extends JFrame implements ActionListener {
 		System.out.println("deptUpdate 호출 성공");
 		int result = 0;
 		
-		StringBuilder sql = new StringBuilder();
-		sql.append("UPDATE dept                        ");
-	    sql.append("   SET dname = ?, loc = ?          ");
-		sql.append("			 WHERE deptno = ?      ");
-		
-	    try {
-			con = dbMgr.getConnection();
-			pstmt = con.prepareStatement(sql.toString());
-			
-			int i = 0;
-			pstmt.setInt(++i, pdVO.getDeptno());
-			pstmt.setString(++i, pdVO.getDname());
-			pstmt.setString(++i, pdVO.getLoc());
-			result = pstmt.executeUpdate();
-			if(result == 1) {
-				JOptionPane.showMessageDialog(this, " 데이터가 수정되었습니다.", "Info", 
-													JOptionPane.INFORMATION_MESSAGE); // 인포이모지
-				deptSelectAll(); 
-				// 입력후 텍스트필드를 빈칸으로 만들어줌
-				setDeptno("");
-				setDname("");
-				setLoc("");
-			 }
-	       } catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				DBConnectionMgr.freeConnection(pstmt, con);
-			}		
-			return result;
-		}
+		return result;
+	}
 	
 	
 	/**************************************************************************
@@ -166,15 +130,14 @@ public class CRUDDept extends JFrame implements ActionListener {
 		int result = 0;
 		StringBuilder sql = new StringBuilder();
 		sql.append("DELETE FROM dept WHERE deptno = ?");
-		
 		try {
 			con = dbMgr.getConnection();
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(1,  deptno);
 			result = pstmt.executeUpdate();
 			if(result == 1) {
-				JOptionPane.showMessageDialog(this, " 데이터가 삭제되었습니다.", "Info", 
-													JOptionPane.INFORMATION_MESSAGE); // 인포이모지
+				JOptionPane.showMessageDialog(this, " 데이터가 삭제되었습니다.", "Error", 
+						                              JOptionPane.INFORMATION_MESSAGE); // 인포이모지
 				deptSelectAll();
 			}
 		} catch (Exception e) {
@@ -201,7 +164,6 @@ public class CRUDDept extends JFrame implements ActionListener {
 			con = dbMgr.getConnection();
 			pstmt = con.prepareStatement(sql.toString());
 			rs = pstmt.executeQuery();
-			
 			Map<String,Object> rmap = null;
 			while(rs.next()) {
 				rmap = new HashMap<>();
@@ -227,7 +189,8 @@ public class CRUDDept extends JFrame implements ActionListener {
 				oneRow.add(data.get(keys[2]));
 				oneRow.add(data.get(keys[1]));
 				oneRow.add(data.get(keys[0]));
-				dtm.addRow(oneRow);				
+				dtm.addRow(oneRow);
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -236,7 +199,6 @@ public class CRUDDept extends JFrame implements ActionListener {
 		}
 		return deptList;
 	}
-	
 	
 	
 	/**************************************************************************
@@ -277,14 +239,12 @@ public class CRUDDept extends JFrame implements ActionListener {
 		this.setSize(600, 400);
 		this.setVisible(true);
 		
-		jtb.setSelectionBackground(Color.yellow); // 테이블에서 선택시 색 변하게 하는 방법
-		jtb.setSelectionForeground(Color.MAGENTA); // 글자색 변하게 하는 방법
-		
 	}
+	
 	
 	////////////////////////////////////////////////// 메인 메소드
 	public static void main(String[] args) {
-		CRUDDept crud = new CRUDDept();
+		CRUDDept2 crud = new CRUDDept2();
 		crud.initDisplay();
 	}
 
@@ -295,60 +255,33 @@ public class CRUDDept extends JFrame implements ActionListener {
 			System.out.println("전체조회 호출 성공");
 			deptSelectAll();
 		}
-		
 		// 입력하고 싶니?
 		else if(obj == jbtn_ins) {
 			System.out.println("입력 호출 성공");
-			String deptno = getDeptno(); // getText() 호출 > 변수에 저장
+			String deptno = getDeptno();
 			String dname = getDname();
 			String loc = getLoc();
 			//System.out.println(deptno+","+dname+","+loc); //단위테스트
-			
 			DeptVO pdVO = new DeptVO();
-			pdVO.setDeptno(Integer.parseInt(deptno)); // 입력한 값을 담기
-			pdVO.setDname(dname);
-			pdVO.setLoc(loc);
-			deptInsert(pdVO); // 담긴 값을 pdVO를 통해 파라미터로 넘겨서 메소드 호출!!!
+			pdVO.setDeptno(Integer.parseInt(deptno));
+			pdVO.setDname(dname);;
+			pdVO.setLoc(loc);;
+			deptInsert(pdVO);
 		}
-		
 		// 수정할거야?
 		else if(obj == jbtn_upd) {
 			System.out.println("수정 호출 성공");
-			int index[] = jtb.getSelectedRows();
-			if(index.length == 0) {
-				JOptionPane.showMessageDialog(this, "수정할 데이터를 선택하세요.", "Error", 
-													JOptionPane.ERROR_MESSAGE); // 에러이모지
-				return;
-			} else {
-				String deptno = getDeptno(); // getText() 호출 > 변수에 저장
-				String dname = getDname();
-				String loc = getLoc();
-				
-//				dtm.setValueAt(getDeptno(), index[0], 0);
-//				dtm.setValueAt(getDname(), index[0], 1);
-//				dtm.setValueAt(getLoc(), index[0], 2);
-				
-			    DeptVO pdVO = new DeptVO();
-			    pdVO.setDeptno(Integer.parseInt(deptno));
-				pdVO.setDname(dname);
-				pdVO.setLoc(loc);
-	
-				deptUpdate(pdVO); 
-				
-				
-			}
 		}
-		
 		// 삭제를 원해? view > action(delete) > "삭제할 데이터를 선택하세요" > action(select all) > view
 		else if (obj == jbtn_del) {
 			System.out.println("삭제 호출 성공");
-			int index[] = jtb.getSelectedRows(); // 선택한 셀의 row값을 int로 반환
+			int index[] = jtb.getSelectedRows();
 			if(index.length == 0) {
 				JOptionPane.showMessageDialog(this, "삭제할 데이터를 선택하세요.", "Error", 
-													JOptionPane.ERROR_MESSAGE); // 에러이모지
+						                             JOptionPane.ERROR_MESSAGE); // 에러이모지
 				return;
 			} else {
-				Integer deptno = (Integer) dtm.getValueAt(index[0], 0);
+				Integer deptno = (Integer)dtm.getValueAt(index[0], 0);
 				System.out.println("사용자가 선택한 부서번호 :"+deptno);
 				deptDelete(deptno); // 삭제 메소드 호출!!!
 			}

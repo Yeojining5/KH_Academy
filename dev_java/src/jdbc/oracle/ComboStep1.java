@@ -3,11 +3,10 @@ package jdbc.oracle;
 	import java.awt.Color;
 	import java.awt.event.ItemEvent;
 	import java.awt.event.ItemListener;
-	​
 	import javax.swing.JComboBox;
 	import javax.swing.JFrame;
 	import javax.swing.JPanel;
-	​
+	
 	public class ComboStep1 extends JFrame implements ItemListener{
 		JPanel 		jp_north 		= null;
 		JComboBox 	jcb_top 		= null;
