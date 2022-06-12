@@ -2,7 +2,6 @@ package ajdbc.crud;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -38,8 +37,8 @@ public class CRUDDept extends JFrame implements ActionListener {
 	ResultSet rs            = null;
 	DBConnectionMgr dbMgr   = new DBConnectionMgr();
 	
-	// JFrame의 디폴트 레이아웃은 BorderLayout
-	JPanel      jp_north    = new JPanel(); // 디폴트레이아웃 : FlowLayout
+	// JFrame의 디폴트 레이아웃은 BorderLayout(가운데 중심으로 동서남북 배치)
+	JPanel      jp_north    = new JPanel(); // 디폴트레이아웃 : FlowLayout(가운데를 중심으로 배치)
 	JButton     jbtn_sel    = new JButton("조회");
 	JButton     jbtn_ins    = new JButton("입력");
 	JButton     jbtn_upd    = new JButton("수정");
@@ -52,10 +51,19 @@ public class CRUDDept extends JFrame implements ActionListener {
 	JTable		jtb 		= new JTable(dtm); // 데이터셋을 파라미터로 넘김
 	JScrollPane jsp			= new JScrollPane(jtb);
 	
-	JPanel jp_south         = new JPanel(); // 디폴트레이아웃 : FlowLayout
+	JPanel      jp_south1   = new JPanel(); 
+	JLabel      jl_deptno   = new JLabel("부서번호");
 	JTextField  jtf_deptno  = new JTextField("",5);
+	
+	JPanel      jp_south2   = new JPanel();
+	JLabel      jl_dname    = new JLabel("부서이름");
 	JTextField  jtf_dname   = new JTextField("",8);
+	
+	JPanel      jp_south3   = new JPanel();
+	JLabel      jl_loc      = new JLabel("지역");
 	JTextField  jtf_loc     = new JTextField("",8);
+	
+	JPanel      jp_south4   = new JPanel();
 	
 	
 	///////////////////////////////////////// 생성자
@@ -89,6 +97,9 @@ public class CRUDDept extends JFrame implements ActionListener {
 			pstmt.setInt(++i, pdVO.getDeptno());
 			pstmt.setString(++i, pdVO.getDname());
 			pstmt.setString(++i, pdVO.getLoc());
+//			pstmt.setInt(2, pdVO.getDeptno());
+//			pstmt.setString(4, pdVO.getDname());
+//			pstmt.setString(6, pdVO.getLoc());
 			result = pstmt.executeUpdate();
 			
 			if(result == 1) { // 1: 정상적으로 불러온경우 전체목록 불러와서 화면초기화
@@ -192,9 +203,13 @@ public class CRUDDept extends JFrame implements ActionListener {
 	 * @return List<Map<String,Object>>
 	 * SELECT deptno, dname, loc FROM dept
 	 **************************************************************************/	
+	
 	public List<Map<String,Object>> deptSelectAll(){
+		
 		System.out.println("deptSelectAll 호출 성공");
+		
 		List<Map<String,Object>> deptList = new ArrayList<>();
+		
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT deptno, dname, loc FROM dept");
 		try {
@@ -217,6 +232,7 @@ public class CRUDDept extends JFrame implements ActionListener {
 			}
 			
 			
+			// Iterator : List에 저장된 값들을 읽어오는 인터페이스
 			Iterator<Map<String,Object>> iter = deptList.iterator();
 			Object keys[] = null;
 			
@@ -255,24 +271,36 @@ public class CRUDDept extends JFrame implements ActionListener {
 	
 	///////////////////////////////////////////////// 화면 처리부
 	public void initDisplay() {	
-		// JButton
-		jp_north.setLayout(new FlowLayout(FlowLayout.LEFT)); // 왼쪽정렬
+		
+		// 북쪽 패널에 JButton 추가
+		//jp_north.setLayout(new FlowLayout(FlowLayout.LEFT)); // 왼쪽정렬
+		// 왼쪽정렬 + 컴포넌트 간의 좌우간격 30픽셀, 상하간격 10픽셀
+		//jp_north.setLayout(new FlowLayout(FlowLayout.LEFT,30,10)); // 왼쪽정렬	
+		jp_north.setLayout(new FlowLayout(FlowLayout.CENTER,30,10));
 		jp_north.add(jbtn_sel);
 		jp_north.add(jbtn_ins);
 		jp_north.add(jbtn_upd);
 		jp_north.add(jbtn_del);
+		this.add("North", jp_north); ///////////// 북쪽 패널
 		
-		// JTextField
-		jp_south.add(jtf_deptno);
-		jp_south.add(jtf_dname);
-		jp_south.add(jtf_loc);
+		this.add("Center",jsp); /////////////////  중앙 패널
 		
-		this.add("North", jp_north);
+		// 남쪽 패널에 JTextField 추가
+		jp_south1.add(jl_deptno);
+		jp_south1.add(jtf_deptno);
 		
-		this.add("Center",jsp);
+		jp_south2.add(jl_dname);
+		jp_south2.add(jtf_dname);
 		
-		this.add("South", jp_south);
+		jp_south3.add(jl_loc);
+		jp_south3.add(jtf_loc);
 		
+		jp_south4.add(jp_south1); // jp_south4패널안에 south123패널을 배치함
+		jp_south4.add(jp_south2);
+		jp_south4.add(jp_south3);
+		
+		this.add("South", jp_south4); /////////////////// 남쪽 패널
+				
 		this.setTitle("부서관리시스템");
 		this.setSize(600, 400);
 		this.setVisible(true);
