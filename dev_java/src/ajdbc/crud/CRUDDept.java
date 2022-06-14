@@ -46,10 +46,11 @@ public class CRUDDept extends JFrame implements ActionListener, MouseListener{
 	JButton 	jbtn_del 	= new JButton("삭제");
 	// 서로 의존관계에 있다. - 의존성 주입(인스턴스화-싱글톤패턴), 객체 주입법, annotion
 	String 		cols[] 		= {"부서번호","부서명","지역"};
-	String 		data[][] 	= new String[0][3];
+	String 		data[][] 	= new String[0][3]; // -> 0행 3열
 	DefaultTableModel dtm	= new DefaultTableModel(data,cols);
 	JTable		jtb			= new JTable(dtm);
 	JScrollPane jsp			= new JScrollPane(jtb);
+	
 	JPanel 		jp_south 	= new JPanel();// 디폴트레이아웃:FlowLayout
 	// 테이블의 로우에 바인딩하기 - UI솔루션 기본 제공
 	JTextField 	jtf_deptno  = new JTextField("",10);
@@ -139,7 +140,7 @@ public class CRUDDept extends JFrame implements ActionListener, MouseListener{
 			con = dbMgr.getConnection();
 			pstmt = con.prepareStatement(sql.toString());
 			int i = 1;
-			pstmt.setString(i++, pdVO.getDname());
+			pstmt.setString(i++, pdVO.getDname()); // ? 순서대로 코드 나열할 것
 			pstmt.setString(i++, pdVO.getLoc());
 			pstmt.setInt(i++, pdVO.getDeptno());
 			result = pstmt.executeUpdate();
