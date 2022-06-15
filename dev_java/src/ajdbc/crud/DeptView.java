@@ -35,7 +35,9 @@ public class DeptView extends JFrame implements ActionListener, MouseListener{
 	JTextField 	jtf_deptno  = new JTextField("",10);
 	JTextField 	jtf_dname  	= new JTextField("",20);
 	JTextField 	jtf_loc  	= new JTextField("",20);	
+	
 	DeptController deptCtrl = new DeptController(this);
+	
 	public DeptView() {
 		jbtn_sel.addActionListener(this);
 		jbtn_ins.addActionListener(this);
@@ -44,6 +46,7 @@ public class DeptView extends JFrame implements ActionListener, MouseListener{
 		jtb.addMouseListener(this);
 		initDisplay();
 	}
+	
 	// 화면 처리부
 	public void initDisplay() {
 		jp_north.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -61,9 +64,13 @@ public class DeptView extends JFrame implements ActionListener, MouseListener{
 		this.setSize(600, 400);
 		this.setVisible(true);
 	}	
+	
+	
 	public static void main(String[] args) {
 		new DeptView();
 	}
+	
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		int index[] = jtb.getSelectedRows();
@@ -115,7 +122,7 @@ public class DeptView extends JFrame implements ActionListener, MouseListener{
 			String deptno = getDeptno();
 			String dname = getDname();
 			String loc = getLoc();
-			//System.out.println(deptno+", "+dname+", "+loc);
+			
 			DeptVO pdVO = new DeptVO();
 			pdVO.setCommand("insert");
 			pdVO.setDeptno(Integer.parseInt(deptno));
@@ -129,6 +136,7 @@ public class DeptView extends JFrame implements ActionListener, MouseListener{
 			String deptno = getDeptno();
 			String dname = getDname();
 			String loc = getLoc();
+			
 			DeptVO pdVO = new DeptVO();
 			pdVO.setCommand("update");
 			pdVO.setDeptno(Integer.parseInt(deptno));
@@ -151,10 +159,9 @@ public class DeptView extends JFrame implements ActionListener, MouseListener{
 				pdVO.setDeptno(deptno);
 				deptCtrl.send(pdVO);
 			}
-			
 		}
-		
 	}
+	
 	// 각 컬럼의 값들을 설정하거나 읽어오는 getter/setter메소드 
 	public String getDeptno() { return jtf_deptno.getText(); }
 	public void setDeptno(int deptno) { jtf_deptno.setText(String.valueOf(deptno)); }
