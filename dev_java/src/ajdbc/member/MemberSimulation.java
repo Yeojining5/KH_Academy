@@ -15,7 +15,7 @@ public class MemberSimulation {
 		pmVO.setMem_zipcode("12345");
 		pmVO.setMem_address("서울시 마포구 공덕동");
 		int result = ms.memberInsert(pmVO);
-		System.out.println("result ==> "+result);
+		System.out.println("result ==> "+result); // 1이면 입력 성공
 	}
 
 }

@@ -350,6 +350,9 @@ public class CRUDDept extends JFrame implements ActionListener, MouseListener{
 	public String getLoc() { return jtf_loc.getText(); }
 	public void setLoc(String loc) { jtf_loc.setText(loc); }
 	
+	
+	
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		int index[] = jtb.getSelectedRows();

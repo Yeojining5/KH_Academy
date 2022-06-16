@@ -56,12 +56,22 @@ public class MemberShip extends JFrame implements ActionListener, MouseListener 
 	ResultSet 			rs		= null; // 조회경우 커서를 조작 필요
 	////////////////// DB연동 ///////////////////	
 	
-	// 생성자
+	MemberApp memberApp = null; // 여기서 인스턴스화를 하면 복제화 되기 떄문에 안됨
+	
+	
+	
+	/////////////////////////////////////////// 생성자
 	public MemberShip() {
-		initDisplay();
+//		new MemberApp();
+//		initDisplay();
 	}
 	
-	// 화면 처리부
+	public MemberShip(MemberApp memberApp) {
+		this.memberApp = memberApp; // 초기화가 된다
+	}
+	
+	
+	/////////////////////////////////////////// 화면 처리부
 	public void initDisplay() {
 		
 		// 처음 화면이 열렸을 때는 아이디 중복체크 전이므로 회원가입 버튼 비활성화(false)
@@ -71,6 +81,8 @@ public class MemberShip extends JFrame implements ActionListener, MouseListener 
 		jbtn_idcheck.addActionListener(this);
 		
 		jbtn_signup.addActionListener(this);
+		
+		jbtn_zipcheck.addActionListener(this);
 		
 		jp_center.setLayout(null); // 절대위치 사용시 널
 		jlb_id.setBounds(20, 20, 100, 20);  // (x, y, w, h) x좌표, y좌표, 가로크기(폭), 세로크기(높이)
@@ -228,7 +240,10 @@ public class MemberShip extends JFrame implements ActionListener, MouseListener 
 			
 			if(result == 1) {
 				System.out.println("result ===> "+result);
-				// insert here - 회원가입 성공 후 MemberApp클래스의 새로고침 메소드 호출하기
+				////////////////////////////////////////////////// 가입이 성공하면 화면 닫기
+				this.dispose();
+				// 회원가입이 닫히고 MemberApp클래스의 화면에 데이터가 입력된다 = 새로고침 메소드 호출하기
+				memberApp.refreshData();
 			}
 		}
 		
@@ -237,16 +252,22 @@ public class MemberShip extends JFrame implements ActionListener, MouseListener 
 			boolean isOk = idCheck(getId());
 			System.out.println("ID중복체크 호출 성공");
 			
-			if(isOk) {
-				JOptionPane.showMessageDialog(this,  "사용할 수 없는 아이디 입니다.", "Error", JOptionPane.ERROR_MESSAGE);
-				return;  // if문 안에서 return을 만나면 함수를 빠져나감. 여기서는 actionPerformed에서 빠져나감
-			} else{
-				JOptionPane.showMessageDialog(this,  "사용 가능한 아이디입니다.", "INFO", JOptionPane.INFORMATION_MESSAGE);
-				isOk = true;
-				jbtn_signup.setEnabled(isOk); // 회원가입 버튼 활성화! true 대신 isOk를 사용하는 것이 세련된 것
-			}
+				if(isOk) {
+					JOptionPane.showMessageDialog(this,  "사용할 수 없는 아이디 입니다.", "Error", JOptionPane.ERROR_MESSAGE);
+					return;  // if문 안에서 return을 만나면 함수를 빠져나감. 여기서는 actionPerformed에서 빠져나감
+				} else{
+					JOptionPane.showMessageDialog(this,  "사용 가능한 아이디입니다.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+					isOk = true;
+					jbtn_signup.setEnabled(isOk); // 회원가입 버튼 활성화! true 대신 isOk를 사용하는 것이 세련된 것
+				}
 	     }
-	}
+		
+		if(obj == jbtn_zipcheck) {
+			ZipcodeSearch zs = new ZipcodeSearch(this);
+			zs.initDisplay();
+		}
+		
+	}  //////////////////////// end of actionPerformed
 
 	public static void main(String[] args) {
 		new MemberShip();

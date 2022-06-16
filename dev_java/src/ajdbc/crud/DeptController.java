@@ -27,7 +27,7 @@ public class DeptController {
 	}
 	
 	public DeptController(DeptVO pdVO) {
-		this.gdVO = pdVO;
+		this.gdVO = pdVO;		
 	}
 	////////////////////////////////////
 	

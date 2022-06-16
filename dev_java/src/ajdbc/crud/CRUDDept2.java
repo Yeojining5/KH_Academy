@@ -256,6 +256,7 @@ public class CRUDDept2 extends JFrame implements ActionListener, MouseListener {
 			
 			
 			// Iterator : List에 저장된 값들을 읽어오는 인터페이스
+			// hasNext는 Iterator의 메소드
 			Iterator<Map<String,Object>> iter = deptList.iterator();
 			Object keys[] = null;
 			
