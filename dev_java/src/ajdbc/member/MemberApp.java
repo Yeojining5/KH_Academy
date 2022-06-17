@@ -52,6 +52,7 @@ public class MemberApp extends JFrame implements ActionListener, MouseListener {
 	JButton jbtn_del = new JButton("삭제");
 	
 	///////////////////////////////////////////////////////중요////////////
+	// this는 MemberApp 자신의 객체를 가리킴. MemberShip 생성자에 MemberApp 객체를 전달하는 것
 	MemberShip ms = new MemberShip(this);
 	//////////////////////////////////////////////////////중요/////////////
 	
@@ -78,7 +79,7 @@ public class MemberApp extends JFrame implements ActionListener, MouseListener {
 		try {
 			con = dbMgr.getConnection();
 			pstmt = con.prepareStatement(sql.toString());
-			rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery(); // 커서는 true or false를 반환한다
 			
 			Map<String,Object> rmap = null;
 			while(rs.next()) {

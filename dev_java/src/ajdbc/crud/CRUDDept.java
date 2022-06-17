@@ -132,9 +132,9 @@ public class CRUDDept extends JFrame implements ActionListener, MouseListener{
 		System.out.println("deptUpdate 호출 성공");
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE dept      ");
-     sql.append("   SET dname = ? ");
-     sql.append("      ,loc = ?   ");   
-     sql.append(" WHERE deptno = ?");		
+		sql.append("   SET dname = ? ");
+		sql.append("      ,loc = ?   ");   
+		sql.append(" WHERE deptno = ?");		
 		int result = 0;
 		try {
 			con = dbMgr.getConnection();

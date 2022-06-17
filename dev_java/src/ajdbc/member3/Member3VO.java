@@ -1,10 +1,6 @@
-package oracle.vo;
+package ajdbc.member3;
 
-// private - 외부 위변조를 막기 위해 사용
-//  그대신 public한 get set 메소드로 접근할 수 있음
-// 원칙적으로는 빈문자열""이 아닌 null을 써야함
-
-public class MemberVO {
+public class Member3VO {
 	private int mem_no = 0; // 
 	private String mem_id = null;    
 	private String mem_pw = null;    
@@ -12,20 +8,9 @@ public class MemberVO {
 	private String mem_zipcode = null;
 	private String mem_address = null;	
 	private String command = null;	
+	private int result = 0; /// 1이면 입력|수정|삭제 성공, 0이면 실패 + getter setter 만들기
 
 	
-	public MemberVO() {
-		
-	}
-	public MemberVO(int mem_no, String mem_id, String mem_pw, String mem_name) {
-		this.mem_no = mem_no;
-		this.mem_id = mem_id;
-		this.mem_pw = mem_pw;
-		this.mem_name = mem_name;
-		this.mem_zipcode = mem_zipcode;
-		this.mem_address = mem_address;
-		
-	}
 	// 파라미터가 없는 대신 리턴타입이 있음
 	public int getMem_no() {
 		return mem_no;
@@ -69,9 +54,10 @@ public class MemberVO {
 	public void setCommand(String command) {
 		this.command = command;
 	}
+	public int getResult() {
+		return result;
+	}
+	public void setResult(int result) {
+		this.result = result;
+	}
 }
-/*
-1,apple,123,애플
-2,tomato,123,토마토
-3,banana,123,바나나
-*/
