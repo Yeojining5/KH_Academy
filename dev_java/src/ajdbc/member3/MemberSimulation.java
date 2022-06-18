@@ -14,8 +14,8 @@ public class MemberSimulation {
 		pmVO.setMem_name("강감찬");
 		pmVO.setMem_zipcode("123456");
 		pmVO.setMem_address("서울시 영등포구 당산동");
-		int result = ms.memberInsert(pmVO);
-		System.out.println("result ==> "+result);//1이면 입력 성공임
+		//int result = ms.memberInsert(pmVO);
+		//System.out.println("result ==> "+result);//1이면 입력 성공임
 	}
 
 }

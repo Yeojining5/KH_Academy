@@ -124,6 +124,9 @@ public class MemberLogin extends JFrame implements ActionListener  {
 	public String login(String mem_id, String mem_pw) {
 		String mem_name = null;
 		
+		 // tomato라는 id를 2개 만들었을때 버그가 발생할 수 있으므로
+		 // (중복검사하면 회원가입 버튼 활성화되는 문제)
+		 // 인라인뷰를 통해 rownum 이 1인 데이터만 다시 추출
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT                                      ");
 		sql.append("      mem_name                              ");
@@ -136,6 +139,7 @@ public class MemberLogin extends JFrame implements ActionListener  {
         sql.append("      ELSE '-1'                             ");
         sql.append("      END AS mem_name                       ");
         sql.append("     FROM member                            ");
+        sql.append("     ORDER BY mem_name desc                 "); 
         sql.append("    )                                       ");
         sql.append("WHERE ROWNUM = 1                            ");
 		try {
@@ -168,7 +172,7 @@ public class MemberLogin extends JFrame implements ActionListener  {
 	}
 
 	
-	@Override ///////////////////////////////////////////////////////// @Override
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if (obj == jbtn_join) {
@@ -177,17 +181,17 @@ public class MemberLogin extends JFrame implements ActionListener  {
 		} 
 		else if (obj == jbtn_login) {
 			String user_id = jtf_id.getText();
-			String user_pw = jpf_pw.getText(); // 비밀번호를 가져오는 것이라. 앞으로 지원하지 않겠다는 의미..
+			String user_pw = jpf_pw.getText();
 			String mem_name = null;
+			
 			mem_name = login(user_id, user_pw);
 			System.out.println("로그인 요청 결과는? " + mem_name);
-			
 			if(mem_name == null) {
 				JOptionPane.showMessageDialog(this, "회원가입 여부를 확인하세요");
 				return;
-			} else if(mem_name.length() > 2) {
-				this.dispose();    // 사용자명이 있다면 로그인창을 닫아라
-				new Member2App(); // MemberApp 화면을 띄워라
+			}else if(mem_name.length() > 2) {
+				this.dispose();
+				new Member2App();
 			}
 		}
 	}

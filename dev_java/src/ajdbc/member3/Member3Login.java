@@ -114,53 +114,7 @@ public class Member3Login extends JFrame implements ActionListener  {
 		this.add(jbtn_join);		
 	}
 	
-	/*******************************************************************
-	 * 로그인 구현
-	 * @param mem_id - 사용자가 입력한 아이디 받아오기
-	 * @param mem_pw - 사용자가 입력한 비밀번호 받아오기
-	 * @return - 사용자 이름 
-	 *******************************************************************/
 	
-	public String login(String mem_id, String mem_pw) {
-		String mem_name = null;
-		
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT                                      ");
-		sql.append("      mem_name                              ");
-		sql.append("FROM(                                       ");
-		sql.append("   SELECT                                   ");
-		sql.append("	 CASE WHEN mem_id=? THEN                ");
-		sql.append("	   CASE WHEN mem_pw=? THEN mem_name     ");
-        sql.append("      	 ELSE '0'                           ");
-        sql.append("      	 END                                ");
-        sql.append("      ELSE '-1'                             ");
-        sql.append("      END AS mem_name                       ");
-        sql.append("     FROM member                            ");
-        sql.append("    )                                       ");
-        sql.append("WHERE ROWNUM = 1                            ");
-		try {
-			con = dbMgr.getConnection();
-	    	pstmt = con.prepareStatement(sql.toString()); // 물음표 채우기
-	    	pstmt.setString(1, mem_id);
-	    	pstmt.setString(2, mem_pw);
-	    	rs = pstmt.executeQuery();
-	    	// 조회 결과는 0이거나 1을 출력하는 row이므로 if문 사용
-	    	
-	    	if(rs.next()) {
-	    		mem_name = rs.getString("mem_name");
-	    	}
-	    	System.out.println("mem_name : "+mem_name);
-		} catch (SQLException se) {
-	    	System.out.println("[[query]]"+ sql.toString());
-	    	System.out.println(se.toString());
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			// 사용한 자원 반납은 생성된 역순으로 한다.
-			DBConnectionMgr.freeConnection(rs, pstmt, con);
-		}
-		return mem_name;
-	}
 	
 	public static void main(String[] args) {
 		new Member3Login();
@@ -176,16 +130,27 @@ public class Member3Login extends JFrame implements ActionListener  {
 			ship.initDisplay();
 		} 
 		else if (obj == jbtn_login) {
+
 			String user_id = jtf_id.getText();
 			String user_pw = jpf_pw.getText(); // 비밀번호를 가져오는 것이라. 앞으로 지원하지 않겠다는 의미..
 			String mem_name = null;
-			mem_name = login(user_id, user_pw);
+			
+			LoginDao loginDao = new LoginDao();  ///
+			mem_name = loginDao.login(user_id, user_pw);   ////
 			System.out.println("로그인 요청 결과는? " + mem_name);
 			
 			if(mem_name == null) {
-				JOptionPane.showMessageDialog(this, "회원가입 여부를 확인하세요");
+				JOptionPane.showMessageDialog(this, "회원가입 여부를 확인하세요.");
 				return;
-			} else if(mem_name.length() > 2) {
+			} 
+			else if(mem_name.equals("0")) {
+				JOptionPane.showMessageDialog(this, "비밀번호를 확인하세요.");
+				return;
+			}else if(mem_name.equals("-1")) {
+				JOptionPane.showMessageDialog(this, "아이디가 존재하지 않습니다.");
+				return;
+			}
+			else {
 				this.dispose();    // 사용자명이 있다면 로그인창을 닫아라
 				new Member3App(); // MemberApp 화면을 띄워라
 			}

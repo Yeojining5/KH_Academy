@@ -3,8 +3,9 @@ package ajdbc.member3;
 public class MemberController {
 	public final String _LOGIN 		= "login";
 	public final String _SIGNUP 	= "membership";
-	public final String _IDCHECK 	= "login";
+	public final String _IDCHECK 	= "idcheck";
 	Member3VO mVO = null;
+	Member3Login memLogin = null;
 	
 	///////////////////////////// 생성자 - 기준을 가져온다.. 사용자가 요청한 파라미터에 맞는 생성자가 필요함
 	public MemberController() {}
@@ -14,9 +15,10 @@ public class MemberController {
 	}
 	
 	
+	
 	public void action() {
 		// LoginDao, MemberDao 생성하기
-		String command = mVO.getCommand(); // mVO.getCommand() 가 반복된다 - 변수로 처리하기
+		String command = mVO.getCommand(); // mVO.getCommand() 가 반복된다 - 변수로 처리하기 / MemberVO 메소드임
 		
 		if(_LOGIN.equals(command)) {
 			LoginDao loginDao = new LoginDao();

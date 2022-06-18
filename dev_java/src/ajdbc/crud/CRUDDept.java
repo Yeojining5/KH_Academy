@@ -38,12 +38,14 @@ public class CRUDDept extends JFrame implements ActionListener, MouseListener{
 	PreparedStatement 	pstmt 	= null;// DML구문 전달하고 오라클에게 요청
 	ResultSet 			rs		= null;// 조회경우 커서를 조작 필요
 	////////////////// DB연동 ///////////////////	
+	
 	// JFrame의 디폴트 레이아웃은 BorderLayout
 	JPanel 		jp_north 	= new JPanel();// 디폴트레이아웃:FlowLayout
 	JButton 	jbtn_sel 	= new JButton("조회");
 	JButton 	jbtn_ins 	= new JButton("입력");
 	JButton 	jbtn_upd 	= new JButton("수정");
 	JButton 	jbtn_del 	= new JButton("삭제");
+	
 	// 서로 의존관계에 있다. - 의존성 주입(인스턴스화-싱글톤패턴), 객체 주입법, annotion
 	String 		cols[] 		= {"부서번호","부서명","지역"};
 	String 		data[][] 	= new String[0][3]; // -> 0행 3열
@@ -56,6 +58,8 @@ public class CRUDDept extends JFrame implements ActionListener, MouseListener{
 	JTextField 	jtf_deptno  = new JTextField("",10);
 	JTextField 	jtf_dname  	= new JTextField("",20);
 	JTextField 	jtf_loc  	= new JTextField("",20);
+	
+	
 	// 생성자
 	public CRUDDept() {
 		// 이벤트 소스와 이벤트 핸들러 매핑하기
@@ -72,6 +76,8 @@ public class CRUDDept extends JFrame implements ActionListener, MouseListener{
 		jtb.addMouseListener(this);
 		initDisplay();
 	}
+	
+	
 	/*******************************************************************
 	 * 부서 등록 구현
 	 * VO(Value Object) - 오라클 타입과 자바타입비교 - 컬럼명과 VO전변과 Map의 키값은 반드시 일치해야 한다.
@@ -119,6 +125,8 @@ public class CRUDDept extends JFrame implements ActionListener, MouseListener{
 		}
 		return result;
 	}
+	
+	
 	/*******************************************************************
 	 * 부서 수정 구현
 	 * @param pdVO - 사용자가 입력한 부서번호, 부서명, 지역을 받는다 - 복합데이터 클래스
@@ -130,17 +138,19 @@ public class CRUDDept extends JFrame implements ActionListener, MouseListener{
 	 *******************************************************************/
 	public int deptUpdate(DeptVO pdVO) {
 		System.out.println("deptUpdate 호출 성공");
+		
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE dept      ");
-		sql.append("   SET dname = ? ");
-		sql.append("      ,loc = ?   ");   
-		sql.append(" WHERE deptno = ?");		
+        sql.append("   SET dname = ? ");
+        sql.append("      ,loc = ?   ");   
+        sql.append(" WHERE deptno = ?");		
 		int result = 0;
+		
 		try {
 			con = dbMgr.getConnection();
 			pstmt = con.prepareStatement(sql.toString());
 			int i = 1;
-			pstmt.setString(i++, pdVO.getDname()); // ? 순서대로 코드 나열할 것
+			pstmt.setString(i++, pdVO.getDname());
 			pstmt.setString(i++, pdVO.getLoc());
 			pstmt.setInt(i++, pdVO.getDeptno());
 			result = pstmt.executeUpdate();
@@ -155,6 +165,8 @@ public class CRUDDept extends JFrame implements ActionListener, MouseListener{
 		}
 		return result;
 	}
+	
+	
 	/*******************************************************************
 	 * 부서 삭제 구현
 	 * @param deptno(int) - 사용자가 선택한 부서번호

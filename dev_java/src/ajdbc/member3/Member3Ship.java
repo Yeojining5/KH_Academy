@@ -152,7 +152,7 @@ public class Member3Ship extends JFrame implements ActionListener, MouseListener
 				this.dispose();
 				// 이 조건이 들어가야 터지지 않음..
 				if(memberApp != null) { 
-					memberApp.refreshData();
+					memberApp.refreshData(); ///
 				}
 			}
 		}
@@ -164,7 +164,8 @@ public class Member3Ship extends JFrame implements ActionListener, MouseListener
 			if(isOk) {
 				JOptionPane.showMessageDialog(this, "사용할 수 없는 아이디 입니다.","ERROR",JOptionPane.ERROR_MESSAGE);
 				return;
-			}else{
+			}
+			else{
 				JOptionPane.showMessageDialog
 				(this, "사용할 수 있는 아이디 입니다.","INFO",JOptionPane.INFORMATION_MESSAGE);
 				isOk = true;
