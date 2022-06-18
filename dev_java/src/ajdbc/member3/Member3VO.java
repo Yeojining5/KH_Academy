@@ -1,5 +1,7 @@
 package ajdbc.member3;
-
+//private - 외부 위변조를 막기 위해 사용
+//그대신 public한 get set 메소드로 접근할 수 있음
+//원칙적으로는 빈문자열""이 아닌 null을 써야함
 public class Member3VO {
 	private int mem_no = 0; // 
 	private String mem_id = null;    
