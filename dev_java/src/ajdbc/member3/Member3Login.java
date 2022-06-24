@@ -80,6 +80,7 @@ public class Member3Login extends JFrame implements ActionListener  {
 		/* 버튼과 텍스트필드 구성 */
 		jbtn_join.addActionListener(this);
 		jbtn_login.addActionListener(this);
+		
 		this.setLayout(null);
 		this.setTitle("자바채팅 ver.1");
 		this.setSize(350, 600);

@@ -271,7 +271,7 @@ public class CRUDDept extends JFrame implements ActionListener, MouseListener{
 				rdVO.setLoc(rs.getString("loc"));
 			}
 			if(rdVO !=null) {
-				setDeptno(rdVO.getDeptno());
+				setDeptno(rdVO.getDeptno()); // setDeptno 텍스트필드 메서드
 				setDname(rdVO.getDname());
 				setLoc(rdVO.getLoc());
 			}
@@ -317,7 +317,7 @@ public class CRUDDept extends JFrame implements ActionListener, MouseListener{
 		//입력하고 싶니?
 		else if(obj == jbtn_ins) {
 			System.out.println("입력 호출 성공");
-			String deptno = getDeptno();
+			String deptno = getDeptno(); // 텍스트필드 메서드
 			String dname = getDname();
 			String loc = getLoc();
 			//System.out.println(deptno+", "+dname+", "+loc);
@@ -330,7 +330,7 @@ public class CRUDDept extends JFrame implements ActionListener, MouseListener{
 		//수정할거야?
 		else if(obj == jbtn_upd) {
 			System.out.println("수정 호출 성공");
-			String deptno = getDeptno();
+			String deptno = getDeptno(); // 텍스트필드 메서드
 			String dname = getDname();
 			String loc = getLoc();
 			DeptVO pdVO = new DeptVO();
