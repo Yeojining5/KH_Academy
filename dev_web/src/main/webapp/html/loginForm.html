@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	function login(){
+		alert('login() 호출 성공');
+		const f_login = document.getElementById("f_login");
+		// input text에 아무것도 입력하지 않으면 null이 아니라 빈문자열이 들어있다. ("")
+		// 입력하는 값에 대한 유효성 체크는 js에서 하는 것이 맞다.
+		let u_id = document.getElementById("mem_id").value;
+		let u_id2 = document.querySelector("#mem_id").value;
+		alert('u_id2 : '+u_id2);
+		let u_id3 = document.querySelector(".uid").value;
+		alert('u_id3 : '+u_id3);
+		console.log('사용자가 입력한 아이디는',u_id,'입니다.');
+		// 아이디 입력에 대한 유효성 체크 하기
+		if(u_id !== "") { // null이 아닌 "" 넣기..
+			//f_login.submit(); // Tom전송시 submit 사용
+		}else{
+			alert('아이디를 입력하세요');
+			return;
+		}
+		console.log('f_login: '+f_login);
+	}
+</script>
+</head>
+<!-- html안에서는 사용자가 입력한 값을 들을 수 없다 > jsp(자바서버페이지)가 필요한 이유
+	html은 정적페이지이기 때문에 값을 불러올 수 없다.
+-->
+<!-- 
+	DOM조작하기
+	html5 + js 비벼져야한다 - 소통(연결)이 필요하다 - <form>태그 
+ -->
+<body>
+	<form id="f_login" method="get" action="loginAction.jsp">
+	<!-- name 속성은 jsp에서 사용하는 값이고 id속성은 js에서 사용할 수 있다. 
+		(css도 가능하지만 권장하지는 않음)
+	-->
+		<input type="text" name="mem_id" id="mem_id">
+		<!-- <button onclick="login()">로그인</button> 버튼 태그를 사용하면 submit이 디폴트라서 단위테스트가 어려워짐 --> 
+		<input type="button" onclick="login()" value="로그인">
+	</form>
+	<form>
+		<select>
+			<option>떡볶이</option>
+			<option>돈까스</option>
+			<option>냉면</option>
+		</select>
+	</form>
+</body>
+</html>

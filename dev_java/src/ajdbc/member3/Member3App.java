@@ -81,6 +81,7 @@ public class Member3App extends JFrame implements ActionListener, MouseListener 
 	    	con = dbMgr.getConnection();
 	    	pstmt = con.prepareStatement(sql.toString());
 	    	rs = pstmt.executeQuery();
+	    	
 	    	Map<String,Object> rmap = null;
 	    	while(rs.next()) {
 	    		rmap = new HashMap<>();

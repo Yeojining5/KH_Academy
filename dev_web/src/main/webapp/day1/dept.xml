@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<records>
+	<record>
+		<deptno>10</deptno>
+		<dname>총무부</dname>
+		<loc>서울</loc>
+	</record>
+	<record>
+		<deptno>20</deptno>
+		<dname>인사부</dname>
+		<loc>서울</loc>
+	</record>
+	<record>
+		<deptno>30</deptno>
+		<dname>개발부</dname>
+		<loc>서귀포</loc>
+	</record>
+</records>
