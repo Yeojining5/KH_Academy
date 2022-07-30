@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="address.view3.addressMapper">
+	<select id="retrieveAll" resultType="java.util.HashMap">
+		SELECT id, name, address, telephone
+		  FROM mkaddrtb ORDER BY name
+	</select>
+	
+	<select id="retrieve"  resultType="address.view3.AddressVO">>
+		 SELECT id, name, address, telephone, gender, relationship, birthday, comments, registedate
+		 	FROM mkaddrtb where id = #{id} <!-- 물음표대신 키값 #{ } -->
+	</select>
+	
+	<insert id="insertAddress" parameterType="address.view3.AddressVO">
+		INSERT INTO mkaddrtb(name, address, telephone, gender
+		                   , relationship,birthday, comments, registedate, id)
+				     VALUES (#{name}, #{address}, #{telephone}, #{gender}
+		                   , #{relationship} ,#{birthday}, #{comments}, to_char(sysdate,'YYYY-MM-DD')
+		                   , seq_mkaddrtb_id.nextval)
+	</insert>
+	<update id="updateAddress" parameterType="address.view3.AddressVO">
+		UPDATE mkaddrtb
+		   SET name = #{name} 
+		      ,address = #{address}
+		      <!-- ,telephone = #{telephone} -->
+		      ,gender = #{gender}
+		      <!-- ,relationship = #{relationship} -->
+		      <!-- ,birthday = #{birthday} -->
+		      <!-- ,comments = #{comments} -->
+		      ,registedate = to_char(sysdate, 'YYYYMMDD')
+		 WHERE id = #{id}
+	</update>
+	<delete id = "deleteAddress" parameterType="address.view3.AddressVO">
+		DELETE FROM mkaddrtb WHERE id = #{id}
+	</delete>			
+</mapper>
+

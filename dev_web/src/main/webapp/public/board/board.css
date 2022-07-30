@@ -1,0 +1,120 @@
+a {
+  text-decoration: none;
+}
+​
+.page-header {
+  padding: 30px 0px;
+}
+​
+.board-list {
+  margin: 20px 0px;
+}
+
+
+/* 모달창 */
+
+.modal-title {
+  color: #fff;
+  background-color: #198754;
+  margin : 4px;
+}
+
+
+/* ---------------------- */
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+header,
+.navbar {
+  /* height: 7rem; */
+}
+
+.navbar-brand {
+  font-size: 3rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
+.navbar-nav {
+  font-size: 1.5rem;
+}
+
+.breadCrumb {
+  margin-top: 10rem;
+  margin-bottom: 5rem;
+}
+
+
+
+footer {
+  margin-top: 8rem;
+}
+
+.list-group-item {
+  padding-right : 2rem;
+  padding-left : 2rem;
+  margin-top: 0.5rem;
+}
+
+#icon {
+  margin-right: 1rem;
+}
+
+.list-group-item:hover {
+  transform: scale(1.2);
+  transition-duration: 0.3s;
+}
+
+#sidebar {
+  margin-top: 5rem;
+  margin-left: 5rem;
+  position: fixed;
+  z-index: 999;
+  transform: translateY(-50%); 
+}
+
+.dot {
+  text-decoration: none;
+  color : black;
+}
+
+.divhr {
+  margin-bottom: 1.5rem;
+}
+
+.container h4 {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+#sidebar-title {
+
+}
+
+#company,
+#center,
+#teacher,
+#map {
+  padding-top: 7rem;
+}
+
+
+.items {
+  margin-top: 2rem;
+  height: 40rem;
+  overflow-y: auto; /* 아이템이 늘어날때 스크롤바 생성 */
+  background-color: #f1f0f1;
+  border-radius: 20px;
+}
+
+.card {
+  margin: 1rem;
+}
+
+
+
+

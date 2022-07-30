@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 // POJO
+// FonrtMVC를 들어오는 조건 *.gym 확장자 파일들...
 // XXX.gym -> 무조건 FrontMVC클래스 인터셉트 하자
 public class FrontMVC extends HttpServlet {
 	Logger logger = Logger.getLogger(FrontMVC.class);
@@ -21,12 +22,28 @@ public class FrontMVC extends HttpServlet {
 		// BoardController는 서블릿으로 설계하지 않았다.
 		// 앞단에 FrontMVC를 경유하니까...
 		// 스프링이 이렇게 하던데....
+		String uri = req.getRequestURI(); // -> /pay/payList.gym
+		logger.info("uri: "+uri);
+		String context = req.getContextPath();
+		logger.info("context: "+context);
+		String command = uri.substring(context.length()+1);
+		int end = command.lastIndexOf(".");
+		command = command.substring(0,end);
+		String upmu[] = null; // upmu[0] = 업무이름, upmu[1] = 메소드이름 통일
+		upmu = command.split("/");
 		BoardController boardController = new BoardController();
+		//MemberController memberController = new MemberController();
+		//PayController payController = new PayController();
 		//다 좋은데 BoardController에는 req와 res가 없는데 어떡하지?
 		//메소드의 파라미터 자리는 지변이다
 		//서블릿 클래스만이 객체주입(게으른...)을 받을 수 있다.
 		//참조에 의한 호출
-		af = boardController.execute(req, res);
+		
+		if("board".equals(upmu[0])) {
+			req.setAttribute("upmu", upmu);
+			af = boardController.execute(req, res);
+		}
+		
 		if(af != null) {
 			if(af.isRedirect()) {
 				//res.sendRedirect("xxx.jsp");
