@@ -21,4 +21,12 @@
 		<servlet-name>FrontMVC1</servlet-name>
 		<url-pattern>*.gym</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>FrontMVC2</servlet-name>
+		<servlet-class>com.mvc.step2.ActionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FrontMVC2</servlet-name>
+		<url-pattern>*.kh</url-pattern>
+	</servlet-mapping>
 </web-app>

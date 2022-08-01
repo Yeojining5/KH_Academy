@@ -4,10 +4,6 @@
 }
 
 
-header,
-.navbar {
-  /* height: 7rem; */
-}
 
 .navbar-brand {
   font-size: 3rem;
@@ -19,25 +15,12 @@ header,
   font-size: 1.5rem;
 }
 
-.breadCrumb {
-  margin-top: 10rem;
-  margin-bottom: 5rem;
-}
 
-
-
-footer {
-  margin-top: 8rem;
-}
-
+/* sidebar li */
 .list-group-item {
   padding-right : 2rem;
   padding-left : 2rem;
   margin-top: 0.5rem;
-}
-
-#icon {
-  margin-right: 1rem;
 }
 
 .list-group-item:hover {
@@ -45,12 +28,24 @@ footer {
   transition-duration: 0.3s;
 }
 
-#sidebar {
-  margin-top: 5rem;
-  margin-left: 5rem;
+#icon {
+  margin-right: 1rem;
+}
+
+.sidebar {
+  /* margin-top: 20rem;
+  margin-left: 5rem; */
   position: fixed;
-  z-index: 999;
-  transform: translateY(-50%); 
+  /* z-index: 999; */ /* 무조건 맨 앞에 표시할 경우 999 or 1000사용 */
+  /* transform: translateY(-50%);  */
+}
+
+
+
+@media (max-width: 767.98px) {
+  .sidebar {
+    top: 5rem;
+  }
 }
 
 .dot {
@@ -62,34 +57,12 @@ footer {
   margin-bottom: 1.5rem;
 }
 
-.container h4 {
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-}
+
 
 #sidebar-title {
 
 }
 
-#company,
-#center,
-#teacher,
-#map {
-  padding-top: 7rem;
-}
-
-
-.items {
-  margin-top: 2rem;
-  height: 40rem;
-  overflow-y: auto; /* 아이템이 늘어날때 스크롤바 생성 */
-  background-color: #f1f0f1;
-  border-radius: 20px;
-}
-
-.card {
-  margin: 1rem;
-}
 
 
 

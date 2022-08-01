@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.boardMapper">
+	<select id="boardList" parameterType="java.util.Map" resultType="map">
+		SELECT bm.b_no, bm.b_title, bm.b_writer, bs.b_file, bm.b_hit
+      FROM board_master_t bm LEFT OUTER JOIN board_sub_t bs
+      on bm.b_no = bs.b_no
+      ORDER BY bm.b_group desc, b_step asc
+	</select>
+</mapper>
