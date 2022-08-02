@@ -21,23 +21,22 @@ import org.apache.log4j.Logger;
  * 학자 - 30%이상이 줄어든다
  * 
  * 자바설정 - Properties
- * XML설정 - spring2.0 ~ spring3.0 주류 (어노테이션은 2.5부터 제공은 됨 - 많이 부족함 - 서블릿에 의존적이다 - 별로임)
- * 그래서 그다음으로 나오게 된 것이 어노테이션 설정 -> 자바설정이라고 할 수 있으나 -> 메이븐 방식, 그레이들 방식(코틀린사용-2019 구글 공식 인정-jetbrain) 그레이들이 대세...
- * 
+ * XML설정 - spring2.0~spring3.0주류 (어노테이션은 2.5부터 제공은 됨-많이 부족함-servlet에 의존적이다-별로임)
+ * 어노테이션설정 - 자바설정 - 메이븐방식,그레이들방식(코틀린사용-2019구글공식 인정-jetbrain)
  * 
  */
 public class MyBatisCommonFactory {
 	static Logger logger = Logger.getLogger(MyBatisCommonFactory.class);
 	public static SqlSessionFactory sqlSessionFactory = null;
-	// SqlSessionFactory객체를 생성해 주는 메소드 입니다. - 싱글톤 패턴 적용
-	// 메소드를 통한 객체 주입 코드(디자인패턴 적용, 싱글톤, 의존성주입, 제어역행, 개발방법론(MVC, MVP, MVVM)
-	// 인스턴스화 5가지 유형 처럼... 
+	//SqlSessionFactory객체를 생성해 주는 메소드 입니다.- 싱글톤 패턴 적용
+	//메소드를 통한 객체 주입 코드(디자인패턴적용, 싱글톤, 의존성주입, 제어역행, 개발방법론(MVC, MVP, MVVM)
+	//인스턴스화 5가지 유형
 	public static void init() {
 		try {
 			String resource = "com/mybatis/MapperConfig.xml";
 			Reader reader = Resources.getResourceAsReader(resource);
 			logger.info("before sqlSessionFactory : "+sqlSessionFactory);
-			if(sqlSessionFactory == null) { // null이 아닐때만 객체 주입을 새로 받는다 (복사본이 아닌, 원본이라는 점이 중요!)
+			if(sqlSessionFactory == null) {// 널이 아닐때만 객체 주입을 새로 받는다
 				sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader,"development");
 			}
 			logger.info("after sqlSessionFactory : "+sqlSessionFactory);
@@ -45,7 +44,7 @@ public class MyBatisCommonFactory {
 			logger.info("[[ Exception ]] "+e.toString());
 		}
 	}// end of init
-	// getter 
+	//getter 
 	public static SqlSessionFactory getSqlSessionFactory() {
 		init();
 		return sqlSessionFactory;

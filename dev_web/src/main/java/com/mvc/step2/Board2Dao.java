@@ -15,9 +15,7 @@ public class Board2Dao {
 	SqlSession sqlSession = null;
 	public Board2Dao() {
 		sqlSessionFactory = MyBatisCommonFactory.getSqlSessionFactory();
-		
 	}
-		
 	public List<Map<String, Object>> boardList() {
 		logger.info("boardList 호출 성공");
 		List<Map<String, Object>> boardList = null;
@@ -32,6 +30,6 @@ public class Board2Dao {
 			sqlSession.close();
 		}
 		return boardList;
-	} ///// end of boardList
+	}/////////////// end of boardList
 
 }

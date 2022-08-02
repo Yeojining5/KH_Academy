@@ -19,14 +19,13 @@ public class BoardController implements Action {
 		logger.info("execute 호출 성공");
 		String upmu[] = (String[])req.getAttribute("upmu");
 		ActionForward af = new ActionForward();
-		//String command = req.getParameter("gubun");
 		StringBuilder path = new StringBuilder();
 		path.append("/board/");
 		logger.info("upmu[1] ===> "+upmu[1]);
 		boolean isRedirect = false;//true- sendRedirect false: forward: 유지-select
 		//글쓰기
-		// 1-1 에서는 메소드내에서 분기문으로 처리를 함
-		// 가독성 별로...
+		// 1-1에서는 메소드내에서 분기문으로 처리를 함
+		// 가독성 별로....
 		// 재사용성도 별로...
 		if("boardInsert".equals(upmu[1])) {
 			logger.info("boardInsert 호출 성공");
