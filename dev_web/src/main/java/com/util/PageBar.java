@@ -4,21 +4,29 @@ import org.apache.log4j.Logger;
 
 public class PageBar {
 	Logger logger = Logger.getLogger(PageBar.class);
-	//전체레코드 갯수
+	
+	//전체레코드 갯수 - SELECT count(*) FROM board_master_t
+	// List<Map<String,Object>>.size() -> 전체 레코드 수 
 	private int totalRecord;//list.size():47row
+	
 	//페이지당 레코드 수
+	//boardList.pj or memberList.pj or orderList.pj
 	private int numPerPage;// 10개씩이다
+	
 	//블럭당 디폴트 페이지 수 - 여기서는 일단 2개로 정함.
 	private int pagePerBlock=2;
+	
 	//총페이지 수
-	private int totalPage;
-	//총블럭 수
+	private int totalPage; //  (int)ceil(47/10.0) 무조건 올림
 	private int totalBlock;
+	
 	//현재 내가 바라보는 페이지 수
 	private int nowPage;
+	
 	//현재 내가 바라보는 블럭 수
 	private int nowBlock;
-	//적용할 페이지 이름
+	
+	//적용할 페이지 이름 - 따로 변수처리 하나?
 	private String pagePath;
 	
 	private String pagination;
@@ -55,11 +63,13 @@ public class PageBar {
 	//setter메소드 선언
 	public void setPageBar() {
 		StringBuilder pageLink = new StringBuilder();
-		//전체 레코드 수가 0보다 클때 처리하기
+		
+		//전체 레코드 수가 0보다 클때 처리하기 - 조회결과가 있다
 		if(totalRecord>0) {
 			//nowBlock이 0보다 클때 처리
 			//이전 페이지로 이동 해야 하므로 페이지 번호에 a태그를 붙여야 하고
 			//pagePath뒤에 이동할 페이지 번호를 붙여서 호출 해야함.
+			//블록이 0보다 더 큰가?
 			if(nowBlock > 0 ) {                                    //(1-1)*2+(2-1)=1
 				pageLink.append("<a href='"+pagePath+"?nowPage="+((nowBlock-1)*pagePerBlock+(pagePerBlock-1))+"'>");
 				pageLink.append("<img border=0 src='/images/bu_a.gif'>");
@@ -76,7 +86,8 @@ public class PageBar {
 					
 				}
 				//모든 경우에 pagePerBlock만큼 반복되지 않으므로 break처리해야 함.
-				//주의할 것.
+				//주의할 것. - NullPointer발생이 우려됨
+				//무한루프를 방지하는 코드
 				if((nowBlock*pagePerBlock)+i+1==totalPage) break;
 			}
 			//현재 블록에서 다음 블록이 존재할 경우 이미지 추가하고 페이지 이동할 수 있도록
@@ -88,7 +99,7 @@ public class PageBar {
 			}
 		}
 		logger.info("pageLink.toString():"+pageLink.toString());
-		pagination = pageLink.toString();
+		pagination = pageLink.toString(); // toString()을 붙여 문자열로 바꿈
 	}
 	//getter메소드 선언
 	public String getPageBar() {

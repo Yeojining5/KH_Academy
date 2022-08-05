@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, com.util.PageBar" %>    
 <%
+// jsp에서 자바코드(스크립틀릿)와 html코드의 작성 위치는 문제가 되지 않는다.
+// 왜냐하면 어차피 jsp는 서버에서 실행되고 그 결과가 text로 출력되는 것이므로 
+// html과 처리 시점이 완전 다르니까...
 	boolean isOk = false;
 	if(request.getParameter("isOk")!=null){
 		isOk = Boolean.parseBoolean(request.getParameter("isOk"));
@@ -12,6 +15,14 @@
 	if(boardList!=null){
 		size = boardList.size();
 	}			
+	// 한 페이지에 출력될 로우의 수를 담음
+	int numPerPage = 4; 
+	// 내가 바라보는 페이지 번호 담음
+	int nowPage = 0;
+	if(request.getParameter("noewPage")!=null){
+		nowPage = Integer.parseInt(request.getParameter("nowPage"));
+	}
+	
 %>    
 <!DOCTYPE html>
 <html>
@@ -142,7 +153,8 @@
 		}
 	}
 	else if(size>0){
-		for(int i=0;i<size;i++){
+		//for(int i=0;i<size;i++){ // 이렇게하면 오라클 데이터개수 만큼 출력됨 (10개 입력했으면  10개)
+		for(int i=nowPage*numPerPage;i<(nowPage*numPerPage)+numPerPage;i++) {
 			if(size == i) break;
 			Map<String,Object> rMap = boardList.get(i);
 %>	      
@@ -201,7 +213,11 @@
    
 <!-- 페이지 네이션 추가 시작 -->
 	<div style="display:table-cell;vertical-align:middle; width:800px; background:#efefef; height:30; border:1px solid #ccc;">
-		[1][2][3] 	
+<%
+	String pagePath = "boardList.pj";
+	PageBar pb = new PageBar(numPerPage, size, nowPage, pagePath);
+	out.print(pb.getPageBar());
+%>
 	</div>
 	
 <!-- 
@@ -218,10 +234,11 @@
 </script>	
  -->
 <!-- 페이지 네이션 추가   끝  -->
-<%
-	String gubun = request.getParameter("gubun");
-	if("list".equals(gubun)){
-%>	
+	<%
+		String gubun = request.getParameter("gubun");
+		if("list".equals(gubun)){
+	%>
+		}
 <script type="text/javascript">
 		getBoardList();
 </script>	

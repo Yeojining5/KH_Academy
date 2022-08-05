@@ -29,4 +29,20 @@
 		<servlet-name>FrontMVC2</servlet-name>
 		<url-pattern>*.kh</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>POJO</servlet-name>
+		<servlet-class>com.mvc.step3.ActionSupport</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>POJO</servlet-name>
+		<url-pattern>*.pj</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ch1dept</servlet-name>
+		<servlet-class>book.ch1.DeptServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ch1dept</servlet-name>
+		<url-pattern>/dept/dept.ds</url-pattern>
+	</servlet-mapping>
 </web-app>

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+
+import com.mvc.step3.ModelAndView;
 // 시중 교재에서는 어노테이션으로 url매핑을 처리하지만
 // 수업에서는 스프링 프레임워크를 최대한 흉내내 보자는 취지로 사용하지 않는다
 public class ActionServlet extends HttpServlet {
@@ -87,7 +89,7 @@ public class ActionServlet extends HttpServlet {
 				}
 			}////end of 출력페이지 호출 URL패턴 조립하기
 		}////////end of 컨트롤계층 리턴결과
-	}
+	}////////// end of doService
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 	throws ServletException, IOException{
