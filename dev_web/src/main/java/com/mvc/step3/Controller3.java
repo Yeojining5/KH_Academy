@@ -16,10 +16,13 @@ public interface Controller3 {
 								, HttpServletResponse res
 								, Map<String, Object> pMap );
 	
-	public String execute (HttpServletRequest req
-						, HttpServletResponse res);
+	public String execute(HttpServletRequest req, HttpServletResponse res);
 	
 	public Object boardList(HttpServletRequest req, HttpServletResponse res);
 	
-		
+	public Object boardDetail(HttpServletRequest req, HttpServletResponse res);
+	
+	public Object boardInsert(HttpServletRequest req, HttpServletResponse res);
+	
+	public Object boardUpdate(HttpServletRequest req, HttpServletResponse res);
 }

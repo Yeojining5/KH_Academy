@@ -31,10 +31,6 @@
 	}
 	function getBoardList(){
 		//alert("getBoardList호출");     	   	
-		//isOk = true;
-		//location.href="boardList.jsp?isOk=true";
-		// document.getElementById("") 이 코드는 아래 제이쿼리코드와 같다
-		// dategrid는 <table>태그와 비슷. 실행문이므로 {} 좌,우중괄호 필수 
 		$("#dg_board").datagrid({
 			url:"jsonBoardList.kh"
 		});

@@ -14,15 +14,14 @@
 	int size = 0;
 	if(boardList!=null){
 		size = boardList.size();
-	}			
+	}		
 	// 한 페이지에 출력될 로우의 수를 담음
-	int numPerPage = 4; 
+	int numPerPage = 10;
 	// 내가 바라보는 페이지 번호 담음
 	int nowPage = 0;
-	if(request.getParameter("noewPage")!=null){
+	if(request.getParameter("nowPage")!=null){
 		nowPage = Integer.parseInt(request.getParameter("nowPage"));
 	}
-	
 %>    
 <!DOCTYPE html>
 <html>
@@ -31,21 +30,18 @@
 <title>MVC기반의 계층형 게시판 구현하기</title>
 <%@ include file="../common/easyui_common.jsp" %>
 <script type="text/javascript">
-	var g_no=0;//그리드에서 선택이 바뀔때 마다 변경된 값이 저장됨.
+	let g_no=0;//그리드에서 선택이 바뀔때 마다 변경된 값이 저장됨.
 	var tb_value;
 	let isOk = false;
 	function dlgIns_save(){
 		//폼 전송 처리함.
+		$("#f_boardIns").submit();
 	}
 	function dlgIns_close(){
 		$("#dlg_boardIns").dialog('close');
 	}
 	function getBoardList(){
 		//alert("getBoardList호출");     	   	
-		//isOk = true;
-		//location.href="boardList.jsp?isOk=true";
-		// document.getElementById("") 이 코드는 아래 제이쿼리코드와 같다
-		// dategrid는 <table>태그와 비슷. 실행문이므로 {} 좌,우중괄호 필수 
 		$("#dg_board").datagrid({
 			url:"jsonBoardList.kh"
 		});
@@ -79,7 +75,17 @@
 	}	
 	$(document).ready(function(){//DOM구성이 완료된 시점-자바스크립트로 태그접근,설정변경,이미지
 		$("#dg_board").datagrid({
-
+			onSelect:function(index,row){
+				g_no = row.B_NO;
+				console.log("g_no:"+g_no);
+			},
+			onDblClickCell: function(index, field, value){
+				if("B_TITLE" == field){
+					location.href="./boardDetail.pj?b_no="+g_no;
+					g_no = 0;
+					$("#dg_board").datagrid('clearSelections')
+				}
+			}
 		});
 	
 		//등록 날짜 정보를 선택했을 때
@@ -153,19 +159,34 @@
 		}
 	}
 	else if(size>0){
-		//for(int i=0;i<size;i++){ // 이렇게하면 오라클 데이터개수 만큼 출력됨 (10개 입력했으면  10개)
-		for(int i=nowPage*numPerPage;i<(nowPage*numPerPage)+numPerPage;i++) {
+		//for(int i=0;i<size;i++){
+		for(int i=nowPage*numPerPage;i<(nowPage*numPerPage)+numPerPage;i++){
 			if(size == i) break;
 			Map<String,Object> rMap = boardList.get(i);
 %>	      
         	<tr>
         		<td><%=rMap.get("B_NO")%></td>
+
         		<td>
-<!-- 너 댓글이니? -->        		
+<!-- 너 댓글이니? -->     
+<%
+//스크립틀릿 안에 작성한 코드는 라이프 사이클에서 service()들어간다
+//그러니까 메소드 선언 안됨
+	String imgPath = path+"..\\images\\";
+	if(Integer.parseInt(rMap.get("B_POS").toString()) > 0){
+		for(int j=0;j<Integer.parseInt(rMap.get("B_POS").toString());j++){
+			out.print("&nbsp;&nbsp;&nbsp;");
+		}////////end of for	
+%>   		
+	<img src="<%=imgPath %>reply.gif"/>   		
+<%
+	}//너 댓글이니까.... 댓글 아이콘 추가
+%>   		
 <a href="javascript:boardDetail('<%=rMap.get("B_NO")%>')" style="text-decoration:none;color:#000000">        		
         		<%=rMap.get("B_TITLE")%>
 </a>        		
         		</td>
+
         		<td><%=rMap.get("B_WRITER")%></td>
         		<td><%=rMap.get("B_DATE")%></td>
         		<td>
@@ -217,7 +238,7 @@
 	String pagePath = "boardList.pj";
 	PageBar pb = new PageBar(numPerPage, size, nowPage, pagePath);
 	out.print(pb.getPageBar());
-%>
+%>	
 	</div>
 	
 <!-- 
@@ -234,11 +255,10 @@
 </script>	
  -->
 <!-- 페이지 네이션 추가   끝  -->
-	<%
-		String gubun = request.getParameter("gubun");
-		if("list".equals(gubun)){
-	%>
-		}
+<%
+	String gubun = request.getParameter("gubun");
+	if("list".equals(gubun)){
+%>	
 <script type="text/javascript">
 		getBoardList();
 </script>	
@@ -247,32 +267,28 @@
 %>
 <!-- 글입력 화면 추가 시작 -->
     <div id="dlg_boardIns" footer="#tb_boardIns" class="easyui-dialog" title="글쓰기" data-options="modal:true,closed:true" style="width:600px;height:400px;padding:10px">
-        <form id="f_boardIns" method="post" enctype="multipart/form-data" action="./boardInsert.do">
-        <!--<form id="f_boardIns" method="get" action="./boardInsert.do">-->
-	    <input type="hidden" id="bm_no" name="bm_no" value="0">
-	    <input type="hidden" id="bm_group" name="bm_group" value="0">
-	    <input type="hidden" id="bm_pos" name="bm_pos" value="0">
-	    <input type="hidden" id="bm_step" name="bm_step" value="0">
+        <!-- <form id="f_boardIns" method="post" enctype="multipart/form-data" action="./boardInsert.pj"> -->
+        <form id="f_boardIns" method="get" action="./boardInsert.pj">
+	    <input type="hidden" id="b_no" name="b_no" value="0">
+	    <input type="hidden" id="b_group" name="b_group" value="0">
+	    <input type="hidden" id="b_pos" name="b_pos" value="0">
+	    <input type="hidden" id="b_step" name="b_step" value="0">
         	<table>
         		<tr>
         			<td width="100px">제&nbsp;&nbsp;&nbsp;목</td>
-        			<td width="500px"><input id="bm_title" name="bm_title" class="easyui-textbox" data-options="width:'250px'" required></td>
+        			<td width="500px"><input id="b_title" name="b_title" class="easyui-textbox" data-options="width:'250px'" required></td>
         		</tr>
         		<tr>
         			<td width="100px">작&nbsp;성&nbsp;자</td>
-        			<td width="500px"><input id="bm_writer" name="bm_writer" class="easyui-textbox" data-options="width:'150px'" required></td>
-        		</tr>
-        		<tr>
-        			<td width="100px">이&nbsp;메&nbsp;일</td>
-        			<td width="500px"><input id="bm_email" name="bm_email" class="easyui-textbox" data-options="width:'150px'" required></td>
+        			<td width="500px"><input id="b_writer" name="b_writer" class="easyui-textbox" data-options="width:'150px'" required></td>
         		</tr>
         		<tr>
         			<td width="100px">내&nbsp;&nbsp;&nbsp;용</td>
-        			<td width="500px"><input id="bm_content" name="bm_content" class="easyui-textbox" data-options="multiline:'true',width:'350px', height:'90px'" required></td>
+        			<td width="500px"><input id="b_content" name="b_content" class="easyui-textbox" data-options="multiline:'true',width:'350px', height:'90px'" required></td>
         		</tr>
         		<tr>
         			<td width="100px">비&nbsp;&nbsp;&nbsp;번</td>
-        			<td width="500px"><input id="bm_pw" name="bm_pw" class="easyui-textbox" data-options="width:'100px'" required></td>
+        			<td width="500px"><input id="b_pw" name="b_pw" class="easyui-textbox" data-options="width:'100px'" required></td>
         		</tr>
         		<tr>
         			<td width="100px">첨부파일</td>

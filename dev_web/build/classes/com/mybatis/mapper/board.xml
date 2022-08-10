@@ -1,10 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.boardMapper">
+
+	<insert id="boardMInsert" parameterType="map">
+		INSERT INTO board_master_t(b_no, b_title, b_writer, b_content, b_pw, b_group, b_pos, b_step, b_date)
+		VALUES(#{b_no}, #{b_title},#{b_writer},#{b_content},#{b_pw}
+		     , #{b_group},#{b_pos},#{b_step},to_char(sysdate, 'YYYY-MM-DD'))     	
+	</insert>
+	
+	<update id="boardMUpdate" parameterType="map">
+		UPDATE board_master_t
+		   SET b_title = #{b_title}
+		      ,b_writer = #{b_writer}
+		      ,b_content = #{b_content}
+		 WHERE b_no = #{b_no}
+	</update>
+	
+	<update id="bStepUpdate" parameterType="map">
+		UPDATE board_master_t
+		   SET b_step = b_step + 1
+		 WHERE b_group = #{b_group}
+		   AND b_step > #{b_step}
+	</update>
+	
+	<select id="getBNo" parameterType="map" resultType="int">
+		SELECT NVL((SELECT /*+index_desc(board_master_t XPKBOARD_MASTER_T)*/ b_no
+		             FROM board_master_t
+		            WHERE rownum = 1),0)+1 b_group
+		  FROM dual   
+	</select>
+	
+	<select id="getBGroup" parameterType="map" resultType="int">
+		SELECT NVL((SELECT /*+index_desc(board_master_t i_bgroup)*/ b_group
+		             FROM board_master_t
+		            WHERE rownum = 1
+		              AND b_group > 0),0)+1 b_group
+		  FROM dual	
+	</select>
+	
 	<select id="boardList" parameterType="java.util.Map" resultType="map">
 		SELECT bm.b_no, bm.b_title, bm.b_writer, bs.bs_file, bm.b_hit 
+		      ,bm.b_content, bm.b_date, bm.b_group, bm.b_pos, bm.b_step 
+		      ,bm.b_pw
 		  FROM board_master_t bm LEFT OUTER JOIN board_sub_t bs
 		    ON bm.b_no = bs.b_no
+		<where>
+			<if test="b_no>0">
+				AND bm.b_no = #{b_no}
+			</if>
+		</where>    
 	  ORDER BY bm.b_group desc, b_step asc	
 	</select>
+	
 </mapper>
