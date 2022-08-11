@@ -34,12 +34,19 @@ public class HandlerMapping {
 		if("board3".equals(upmu[0])) {
 			controller = new Board3Controller();
 			// 게시판 글쓰기 메소드 호출
-			if("boardUpdate".equals(upmu[1])) {
+			if("boardDelete".equals(upmu[1])) {
 				// 파라미터로 원본을 넘긴다
-				obj = controller.boardUpdate(req,res);
+				obj = controller.boardDelete(req,res);
 				if(obj instanceof String) {
 					return (String)obj;
-				} 
+				}
+			}
+				else if("boardUpdate".equals(upmu[1])) {
+					// 파라미터로 원본을 넘긴다
+					obj = controller.boardUpdate(req,res);
+					if(obj instanceof String) {
+						return (String)obj;
+					} 
 			}
 			else if("boardInsert".equals(upmu[1])) {
 				// 파라미터로 원본을 넘긴다

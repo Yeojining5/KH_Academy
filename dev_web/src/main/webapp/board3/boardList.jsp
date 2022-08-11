@@ -31,7 +31,7 @@
 <%@ include file="../common/easyui_common.jsp" %>
 <script type="text/javascript">
 	let g_no=0;//그리드에서 선택이 바뀔때 마다 변경된 값이 저장됨.
-	var tb_value;
+	let tb_value; // 사용자가 입력한 문자열 담기
 	let isOk = false;
 	function dlgIns_save(){
 		//폼 전송 처리함.
@@ -41,10 +41,12 @@
 		$("#dlg_boardIns").dialog('close');
 	}
 	function getBoardList(){
-		//alert("getBoardList호출");     	   	
-		$("#dg_board").datagrid({
-			url:"jsonBoardList.kh"
-		});
+		//alert("getBoardList호출");     
+		// 사용자가 선택한 콤보박스에 value가 담김 - b_title,contet,writer
+		cb_value = user_combo;
+		tb_value = $("#tb_search").val(); // 사용자가 입력한 조건 검색 문자열
+		console.log("콤보박스 값: "+cb_value+", 사용자가 입력한 키워드 : "+tb_value);
+		location.href = "boardList.pj?cb_search="+cb_value+"&tb_search="+tb_value+"&b_date="+v_date;
 	}	
 	function boardDetail(bm_no){
 	}
@@ -55,8 +57,8 @@
 </head>
 <body>
 <script type="text/javascript">
-	var user_combo="bm_title";//제목|내용|작성자
-	var v_date;//사용자가 선택한 날짜 정보 담기
+	let user_combo="bm_title";//제목|내용|작성자
+	let v_date;//사용자가 선택한 날짜 정보 담기
 //기본 날짜포맷을 재정의
 	$.fn.datebox.defaults.formatter = function(date){
 		var y = date.getFullYear();
@@ -90,12 +92,23 @@
 	
 		//등록 날짜 정보를 선택했을 때
 		$('#db_date').datebox({
-
+			onSelect: function(date) {
+				//alert(date.getFullYear()+":"+(date.getMonth()+1)+":"date.getData())
+				const y = date.getFullYear();
+				const m = date.getMonth()+1;
+				const d = date.getData();
+				v_date = y+"-"+(m<10? "0"+m : m)+"-"+(d<10? "0"+d : d);
+				console.log("사용자가 선택한 날짜 ==> " +v_date)
+			}
 		});
 		
 		//검색 조건 콤보에 변경이 일어났을 때
 		$('#cb_search').combobox({
-
+			onChange: function(){
+				user_combo = $("#cb_search").combobox('getValue'); // b_title or b_content or b_writer
+				console.log(user_combo)
+				
+			}
 		});
 
 		$('#tb_search').textbox({
@@ -111,10 +124,7 @@
 			}]
 		});
 
-	    $('#linkBtnSearch').bind('click', function(){
-	        //alert('easyui');
-	        getBoardList();
-	    });
+
 	    /*===================== CRUD버튼 시작 ====================*/	    
 		//조회버튼 클릭했을 때
 	    $('#crudBtnSel').bind('click', function(){
@@ -211,19 +221,16 @@
                                      -->
         <select class="easyui-combobox" id="cb_search" name="cb_search" panelHeight="auto" style="width:100px">
             <option selected>선택</option>
-            <option value="bm_title">제목</option>
-            <option value="bm_content">내용</option>
-            <option value="bm_writer">작성자</option>
+            <option value="b_title">제목</option>
+            <option value="b_content">내용</option>
+            <option value="b_writer">작성자</option>
         </select>
         <input id="tb_search" name="tb_search" class="easyui-textbox" style="width:320px">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 작성일: <input id="db_date" class="easyui-datebox" name="bm_date" style="width:110px">
-<!-- 태그내에서 속성(width, align, href)이나  -->   
-        <a id="linkBtnSearch" class="easyui-linkbutton" iconCls="icon-search">Search</a>
-<!--    <a id="linkBtnSearch" href="javascript:btnSearch()" class="easyui-linkbutton" iconCls="icon-search">Search</a> -->
 	<!-- 버튼 추가 화면 시작 --> 
 	    <div id="ft" style="padding:2px 5px;">
-	        <a id="crudBtnSel" href="javascript:getBoardList()" class="easyui-linkbutton" iconCls="icon-search" plain="true">조회</a>
+	        <a id="crudBtnSel" href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true">조회</a>
 	        <a id="crudBtnIns" href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">입력</a>
 	        <a id="crudBtnUpd" href="#" class="easyui-linkbutton" iconCls="icon-reload" plain="true">수정</a>
 	        <a id="crudBtnDel" href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true">삭제</a>
