@@ -35,7 +35,7 @@
 //html만으로 처리
 //javascript만으로 처리
 //html+javascript혼합 처리(권장-리액트)
-	function boardList() {
+	function boardList(){
 		location.href="./boardList.pj";
 	}
 	function dlgIns_save(){

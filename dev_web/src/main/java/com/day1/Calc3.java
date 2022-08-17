@@ -60,8 +60,9 @@ public class Calc3 extends HttpServlet {
 		Cookie expCookie = new Cookie("exp", exp);
 		
 		if(operator != null && operator.equals("C")) 
-//			expCookie.setMaxAge(0); // 쿠키가 저장되자마자 삭제되는 코드
+			expCookie.setMaxAge(0); // 쿠키가 저장되자마자 삭제되는 코드
 		
+		expCookie.setPath("/");
 		res.addCookie(expCookie);
 		res.sendRedirect("calcpage"); // @WebSerblet(/"calcpage")와 동일하게
 		}

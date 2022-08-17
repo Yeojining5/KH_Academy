@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './app';
+import WorkoutApp from './workoutApp';
+import "@fortawesome/fontawesome-free/js/all.js"
+//npm i @fortawesome/fontawesome-free
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <WorkoutApp />
   </React.StrictMode>
 );

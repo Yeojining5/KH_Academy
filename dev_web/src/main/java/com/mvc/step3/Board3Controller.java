@@ -11,30 +11,28 @@ import org.apache.log4j.Logger;
 
 import com.util.HashMapBinder;
 // 컨트롤 계층을 담당하는 클래스는 서블릿이 아니어도 괜찮아
-// Board3Controller는 Controller3 인터페이스의 구현체 클래스이다. (메소드를 누릴 수 있다)
-// 서블릿은 아니지만  req와 res는 필요해
-// 어디서 가져와야 하는가?
-// ActionSupport에서 주입 받고 HandlerMappnig클래스의 메소드 호출할 때
-// 파라미터를 통해서 가져올 수 있다 - 원본으로!
+// 혼자서는 아무것도 완성할 수 없는 나 - 전체적인 틀, 와꾸, 패턴, 기준
+// Board3Controller는 Controller3인터페이스의 구현체 클래스 이다.(메소드를 누릴 수 있다)
+// 서블릿은 아니지만 req와 res는 필요해
+// 형 어디서 가져와야 하죠?
+// ActionSupport에서 주입 받고 HandlerMapping클래스의 메소드 호출할 때
+// 파라미터를 통해서 가져올 수 있다. - 원본
 public class Board3Controller implements Controller3 {
-	
 	Logger logger = Logger.getLogger(Board3Controller.class);
 	Board3Logic boardLogic = new Board3Logic();
-	
 	@Override
 	public Object boardUpdate(HttpServletRequest req, HttpServletResponse res) {
 		logger.info("boardUpdate 호출 성공");
-		// 사용자가 입력한 값을 담기 - Map - req.getParameter("name")
+		//사용자가 입력한 값을 담기 - Map - req.getParameter("name")
 		Map<String,Object> pMap = new HashMap<>();
 		HashMapBinder hmb = new HashMapBinder(req);
 		hmb.bind(pMap);
 		int result = 0;
 		result = boardLogic.boardUpdate(pMap);
-		// jsp -> action(update) -> action(select) 새로고침 ---(유지forward)---> boardList.jsp
+		// jsp-> action(update) -> action(select) --(forward)--> boardList.jsp
 		String path = "redirect:boardList.pj";
 		return path;
-	}
-	
+	}	
 	@Override
 	public ModelAndView boardList(HttpServletRequest req, HttpServletResponse res) {
 		logger.info("boardList 호출 성공");
@@ -44,12 +42,11 @@ public class Board3Controller implements Controller3 {
 		hmb.bind(pMap);
 		ModelAndView mav = new ModelAndView(req);
 		List<Map<String,Object>> boardList = null;
-		boardList = boardLogic.boardDetail(pMap);
+		boardList = boardLogic.boardList(pMap);
 		mav.addObject("boardList",boardList);
 		mav.setViewName("board3/boardList");
 		return mav;
 	}
-	
 	@Override
 	public ModelAndView execute(HttpServletRequest req, HttpServletResponse res, Map<String, Object> pMap) {
 		// TODO Auto-generated method stub
@@ -61,7 +58,7 @@ public class Board3Controller implements Controller3 {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+	//boardList.jsp->모달->입력->insert-> board3/boardList.pj
 	@Override
 	public Object boardInsert(HttpServletRequest req, HttpServletResponse res) {
 		logger.info("boardInsert 호출 성공");
@@ -87,19 +84,18 @@ public class Board3Controller implements Controller3 {
 		mav.setViewName("board3/read"); 
 		return mav;
 	}
-
 	@Override
 	public Object boardDelete(HttpServletRequest req, HttpServletResponse res) {
 		logger.info("boardDelete 호출 성공");
-		// 사용자가 입력한 값을 담기 - Map - req.getParameter("name")
 		Map<String,Object> pMap = new HashMap<>();
 		HashMapBinder hmb = new HashMapBinder(req);
 		hmb.bind(pMap);
 		int result = 0;
 		result = boardLogic.boardDelete(pMap);
-		// jsp -> action(update) -> action(select) 새로고침 ---(유지forward)---> boardList.jsp
 		String path = "redirect:boardList.pj";
 		return path;
 	}
+
+
 
 }

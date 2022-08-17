@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
 
+import com.mvc.step2.Board2Dao;
 import com.util.MyBatisCommonFactory;
 
 public class Board3MDao {
@@ -84,7 +85,6 @@ public class Board3MDao {
 		}		
 		return result;
 	}
-	
 	public int hitCount(Map<String, Object> pMap) {
 		int result = 0;
 		try {
@@ -98,7 +98,7 @@ public class Board3MDao {
 			sqlSession.close();
 		}		
 		return result;
-	}
+	}	
 	public int boardMUpdate(Map<String, Object> pMap) {
 		int result = 0;
 		try {
@@ -112,8 +112,7 @@ public class Board3MDao {
 			sqlSession.close();
 		}		
 		return result;
-	}
-	
+	}	
 	public int boardMInsert(Map<String, Object> pMap) {
 		int result = 0;
 		try {
@@ -151,6 +150,5 @@ public class Board3MDao {
 		}		
 		return result;
 	}
-	
-	
+
 }

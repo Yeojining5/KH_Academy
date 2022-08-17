@@ -31,7 +31,7 @@
 <%@ include file="../common/easyui_common.jsp" %>
 <script type="text/javascript">
 	let g_no=0;//그리드에서 선택이 바뀔때 마다 변경된 값이 저장됨.
-	let tb_value; // 사용자가 입력한 문자열 담기
+	let tb_value;//사용자가 입력한 문자열 담기
 	let isOk = false;
 	function dlgIns_save(){
 		//폼 전송 처리함.
@@ -41,11 +41,11 @@
 		$("#dlg_boardIns").dialog('close');
 	}
 	function getBoardList(){
-		//alert("getBoardList호출");     
-		// 사용자가 선택한 콤보박스에 value가 담김 - b_title,contet,writer
+		//alert("getBoardList호출");
+		//사용자가 선택한 콤보박스에 value가 담김 - b_title, or b_content or b_writer
 		cb_value = user_combo;
-		tb_value = $("#tb_search").val(); // 사용자가 입력한 조건 검색 문자열
-		console.log("콤보박스 값: "+cb_value+", 사용자가 입력한 키워드 : "+tb_value);
+		tb_value = $("#tb_search").val();//사용자가 입력한 조건 검색 문자열
+		console.log("콤보박스 값: "+ cb_value+", 사용자가 입력한 키워드: "+tb_value);
 		location.href = "boardList.pj?cb_search="+cb_value+"&tb_search="+tb_value+"&b_date="+v_date;
 	}	
 	function boardDetail(bm_no){
@@ -92,22 +92,21 @@
 	
 		//등록 날짜 정보를 선택했을 때
 		$('#db_date').datebox({
-			onSelect: function(date) {
-				//alert(date.getFullYear()+":"+(date.getMonth()+1)+":"date.getData())
+			onSelect: function(date){
+				//alert(date.getFullYear()+":"+(date.getMonth()+1)+":"+date.getDate());
 				const y = date.getFullYear();
 				const m = date.getMonth()+1;
-				const d = date.getData();
-				v_date = y+"-"+(m<10? "0"+m : m)+"-"+(d<10? "0"+d : d);
-				console.log("사용자가 선택한 날짜 ==> " +v_date)
+				const d = date.getDate();
+				v_date = y+"-"+(m<10? "0"+m:m)+"-"+(d<10? "0"+d:d);
+				//console.log("사용자가 선택한 날짜 ==> "+v_date);
 			}
 		});
 		
 		//검색 조건 콤보에 변경이 일어났을 때
 		$('#cb_search').combobox({
-			onChange: function(){
-				user_combo = $("#cb_search").combobox('getValue'); // b_title or b_content or b_writer
+			onChange:function(){
+				user_combo = $("#cb_search").combobox('getValue');//b_title or b_content or b_writer
 				console.log(user_combo)
-				
 			}
 		});
 
@@ -123,7 +122,6 @@
 				}
 			}]
 		});
-
 
 	    /*===================== CRUD버튼 시작 ====================*/	    
 		//조회버튼 클릭했을 때
