@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-
-import com.mvc.step3.ModelAndView;
 // 시중 교재에서는 어노테이션으로 url매핑을 처리하지만
 // 수업에서는 스프링 프레임워크를 최대한 흉내내 보자는 취지로 사용하지 않는다
+// 1-4에서는 가급적 if문을 버리고 메소드로 독립시켜 본다
 public class ActionServlet extends HttpServlet {
 	Logger logger = Logger.getLogger(ActionServlet.class);
 	public void doService(HttpServletRequest req, HttpServletResponse res)
@@ -55,7 +54,6 @@ public class ActionServlet extends HttpServlet {
 				logger.info("pageMove==>"+pageMove[0]+","+pageMove[1]);
 			}////end of String
 			else if(obj instanceof ModelAndView) {
-				
 			}
 			//출력 결과에 대한 페이지 정보가 있니?
 			//스프링에서는 왜 이런 처리를 제공하게 되었나?
@@ -89,7 +87,7 @@ public class ActionServlet extends HttpServlet {
 				}
 			}////end of 출력페이지 호출 URL패턴 조립하기
 		}////////end of 컨트롤계층 리턴결과
-	}////////// end of doService
+	}
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 	throws ServletException, IOException{

@@ -30,9 +30,12 @@ public class HandlerMapping {
 		Object obj = null;
 		String path  = null;
 		ModelAndView mav = null;
-		if("board3".equals(upmu[0])) {
+		if("board3".equals(upmu[0])) {//배열의 첫방에 업무폴더이름
 			controller = new Board3Controller();
 			//게시판 글쓰기 메소드 호출
+			//if문 사용하여 메소드이름을 결정지었다.
+			// 코드의 양은 늘었다.왜 if문이 늘어가니까
+			// 복잡도도 늘었나???
 			if("boardDelete".equals(upmu[1])) {
 				// 파리미터로 원본을 넘긴다
 				obj = controller.boardDelete(req,res);

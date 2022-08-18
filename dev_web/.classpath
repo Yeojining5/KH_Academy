@@ -17,5 +17,6 @@
 	<classpathentry kind="lib" path="C:/Users/user/git/Yeojin/dev_java/gson-2.8.6.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/mybatis-3.5.10.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/cos-05Nov2002.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

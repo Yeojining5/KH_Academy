@@ -51,13 +51,15 @@
 	function boardDetail(bm_no){
 	}
     function fileDown(fname){
-		//alert(fname);
+		location.href="downLoad.jsp?bs_file="+fname;
     }	
 </script>
 </head>
 <body>
 <script type="text/javascript">
 	let user_combo="bm_title";//제목|내용|작성자
+	//전변 - javascript에서는 선언만 하고 선택을 하지 않았거나 값이 할당되지 않으면 
+	//그냥 null비교만 해서는 안된다.
 	let v_date;//사용자가 선택한 날짜 정보 담기
 //기본 날짜포맷을 재정의
 	$.fn.datebox.defaults.formatter = function(date){
@@ -92,6 +94,7 @@
 	
 		//등록 날짜 정보를 선택했을 때
 		$('#db_date').datebox({
+			//왜? undefinded이었나?
 			onSelect: function(date){
 				//alert(date.getFullYear()+":"+(date.getMonth()+1)+":"+date.getDate());
 				const y = date.getFullYear();
@@ -198,9 +201,21 @@
         		<td><%=rMap.get("B_WRITER")%></td>
         		<td><%=rMap.get("B_DATE")%></td>
         		<td>
+<%
+	if(rMap.get("BS_FILE")!=null){
+%>        		
         		<a href="javascript:fileDown('<%=rMap.get("BS_FILE") %>')">
         		<%=rMap.get("BS_FILE")%>
         		</a>
+<%
+	}
+	else{
+%>
+        		<%=rMap.get("BS_FILE")%>
+<%
+	}
+%>
+        		
         		</td>
         		<td><%=rMap.get("B_HIT")%></td>
         	</tr>
@@ -272,8 +287,8 @@
 %>
 <!-- 글입력 화면 추가 시작 -->
     <div id="dlg_boardIns" footer="#tb_boardIns" class="easyui-dialog" title="글쓰기" data-options="modal:true,closed:true" style="width:600px;height:400px;padding:10px">
-        <!-- <form id="f_boardIns" method="post" enctype="multipart/form-data" action="./boardInsert.pj"> -->
-        <form id="f_boardIns" method="get" action="./boardInsert.pj">
+        <form id="f_boardIns" method="post" enctype="multipart/form-data" action="./boardInsert.pj">
+        <!-- <form id="f_boardIns" method="get" action="./boardInsert.pj">  -->
 	    <input type="hidden" id="b_no" name="b_no" value="0">
 	    <input type="hidden" id="b_group" name="b_group" value="0">
 	    <input type="hidden" id="b_pos" name="b_pos" value="0">

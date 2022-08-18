@@ -16,7 +16,21 @@ import org.apache.log4j.Logger;
  * :메소드 안에 req와 res를 지원해야 함 - HttpSession session = req.getSession();//세션객체 생성
  * 그러기 위해서는 클래스 설계를 어떻게 가져 가야 할까?
  * :board3/boardList.pj와  메소드 이름으로 매칭을 할 수 있어야 한다
- * 
+ * 넌 FrontController 야
+ * request객체와 response객체를 주입 받는다
+ * LiveServer 내안에는 servlet-api.jar와 jsp-api.jar가 없다
+ * 요청객체로 할 수 있는 것
+ * request.getParameter("name"); 듣기
+ * PrintWriter out = req.getWriter();//document.write("");태그를 쓴다( 출력)
+ * 페이지 처리
+ * 페이지 이동
+ * response.sendRedirect("");
+ * response.setContentType("text/html;utf-8");//마임타입 결정
+ * 브라우저가 보고 처리를 한다
+ * scope의 하나 이다 - request.setAttribute("이름",값) - 유지
+ * request.getRequestDispatcher("XXX.jsp").forward(req,res)
+ * session.setAttribute("",값);
+ * HttpSession session  = request.getSession();세션객체를 생성할때도 request가 필요하다
  */
 public class ActionSupport extends HttpServlet {
 	Logger logger = Logger.getLogger(ActionSupport.class);
@@ -28,7 +42,7 @@ public class ActionSupport extends HttpServlet {
 		int end = command.lastIndexOf(".");
 		command = command.substring(0,end);
 		String upmu[] = null;
-		upmu = command.split("/");
+		upmu = command.split("/");// 업무폴더이름/업무이름.pj
 		logger.info(upmu[0]+","+upmu[1]);
 		//1-2,3과는 다르게 메소드의 파라미터로 upmu배열을 전달함
 		//req.setAttribute("upmu", upmu);필요가 없다 . 왜냐면 파라미터로 전달하니까....
@@ -37,6 +51,10 @@ public class ActionSupport extends HttpServlet {
 		//Board2Controller  boardController = new Board2Controller();
 		Object obj = null;
 		try {
+			// 이 요청을 어떤 컨트롤러 클래스가 담당하나요?
+			// MemberController  or OrderController or PriceController or  GoodsController
+			// Board3Controller가 서블릿이 아니더라도 req와 res를 사용할 수 있는 것은
+			// HandlerMapping클래스에 getController메소드의 파라미터로 전달되기 때문에 가능함
 			obj = HandlerMapping.getController(upmu, req, res);			
 		} catch (Exception e) {
 			logger.info("Exception : "+e.toString());
@@ -85,6 +103,7 @@ public class ActionSupport extends HttpServlet {
 			}////end of 출력페이지 호출 URL패턴 조립하기
 		}////////end of 컨트롤계층 리턴결과		
 	}////////////end of doService
+	// 403 or 405 주의
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 	throws ServletException, IOException{

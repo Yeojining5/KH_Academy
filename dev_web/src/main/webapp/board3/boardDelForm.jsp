@@ -3,6 +3,7 @@
 <%
 	String pbm_no = request.getParameter("b_no");
 	String pbm_pw = request.getParameter("b_pw");
+	
 %>	  
 <html>
 <head>

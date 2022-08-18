@@ -41,13 +41,13 @@ public class FrontMVC extends HttpServlet {
 			req.setAttribute("upmu", upmu);
 			af = boardController.execute(req, res);			
 		}
-		// 이 부분에 대해 두 사람 이상에게 설명해 보자
+		// 이 부분에 대해 2사람 이상에게 설명해 보자
 		if(af != null) {
 			if(af.isRedirect()) {
 				//res.sendRedirect("xxx.jsp");
-				res.sendRedirect(af.getPath()); // 유지가 안됨
+				res.sendRedirect(af.getPath());//유지가 안됨
 			}else {// forward - 유지, 주소안변함, 그런데 페이지는 바뀌었다
-				// select문이면 무조건 너다
+				//select문이면 무조건 너
 				RequestDispatcher view = req.getRequestDispatcher(af.getPath());
 				view.forward(req, res);
 			}

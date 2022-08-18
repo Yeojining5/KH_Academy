@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 // 이코드를 쓰지 않고 화면에서 boardList사용하고 싶다 어떡하지?
 // 서블릿에 의존적이지 않은 프레임워크가 정답이다
 // req이 없이도 조회된 결과를 화면에 전달할 수 있었으면 해
+// 내안에 scope있다. - request
 public class ModelAndView {
 	Logger logger  = Logger.getLogger(ModelAndView.class);
 	HttpServletRequest req = null;
@@ -47,6 +48,15 @@ public class ModelAndView {
 		logger.info(name+","+obj);
 		Map<String,Object> pMap = new HashMap<>();
 		pMap.put(name, obj);
+		//메소드 호출하기 - 스코프 적용함
+		//메소드의 파라미터를 결정 할 수 있다|없다
+		//메소드의 리턴타입을 결정할 수 있다|없다
+		//파라미터의 클래스타입으로 원본을 보낼 수  있다|없다
+		//파라미터로 전달하는 건 문자열만 가능함
+		//그러나 첨부파일은 바이너리 타입으로 처리를 해야 함
+		//전송 - post, get 
+		//바이너리(문자,숫자 분리- 부피가 줄어든다) 처리는 무조건 post이다.
+		//일반 request로는 바이너리 방식의 값을 읽을 수 없다.
 		req.setAttribute(name, obj);
 		reqList.add(pMap);
 	}

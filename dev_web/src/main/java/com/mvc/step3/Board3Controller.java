@@ -1,5 +1,9 @@
 package com.mvc.step3;
-
+// XXXController 는 서블릿이 아니어도 괜찮아
+// ActionSupport가 서블릿이다
+// XXX.jsp요청하는 것과  XXX.pj로 요청하는 것의 차이는 뭘까요?
+// 표준 서블릿(HttpServlet)이 요청을 받는것이고 pj로 요청이 들어오는 것은 ActionSupport가 받는다
+// HandlerMapping
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +68,9 @@ public class Board3Controller implements Controller3 {
 		logger.info("boardInsert 호출 성공");
 		Map<String,Object> pMap = new HashMap<>();
 		HashMapBinder hmb = new HashMapBinder(req);
-		hmb.bind(pMap);
+		//아래 코드는 base32, base64 처리시 사용하고
+		//hmb.bind(pMap);
+		hmb.multiBind(pMap);
 		int result = 0;
 		result = boardLogic.boardInsert(pMap);
 		String path = "redirect:boardList.pj";

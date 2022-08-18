@@ -149,8 +149,8 @@
     <div id="dlg_boardIns" footer="#tb_boardIns" class="easyui-dialog" title="댓글쓰기" data-options="modal:true,closed:true" style="width:600px;height:400px;padding:10px">
         <!-- 바이너리(문자열+숫자) 파일을 전송할 때는 반드시 post방식 처리 첨부파일 처리시 -->
         <!-- base2, base8, base16, base64 텍스트 파일(문자열치환-파일크기가 커진다) -->
-        <!-- <form id="f_boardIns" method="post" enctype="multipart/form-data" action="./boardInsert.pj"> -->
-        <form id="f_boardIns" method="get" action="./boardInsert.pj">
+        <form id="f_boardIns" method="post" enctype="multipart/form-data" action="./boardInsert.pj">
+        <!-- <form id="f_boardIns" method="get" action="./boardInsert.pj">  -->
         <!-- 태그안에 자바변수 사용가능한가? 가능함 -->
 	    <input type="hidden" id="b_group" name="b_group" value="<%=rb_group%>">
 	    <input type="hidden" id="b_pos" name="b_pos" value="<%=rb_pos%>">
