@@ -14,6 +14,7 @@ public class Board3MDao {
 	Logger logger = Logger.getLogger(Board3MDao.class);
 	SqlSessionFactory sqlSessionFactory = null;
 	SqlSession sqlSession = null;
+	
 	public Board3MDao() {
 		sqlSessionFactory = MyBatisCommonFactory.getSqlSessionFactory();
 	}

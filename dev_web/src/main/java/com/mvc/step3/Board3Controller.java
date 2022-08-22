@@ -101,6 +101,11 @@ public class Board3Controller implements Controller3 {
 		String path = "redirect:boardList.pj";
 		return path;
 	}
+	@Override
+	public Object login(HttpServletRequest req, HttpServletResponse res) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 

@@ -74,9 +74,19 @@ public class HandlerMapping {
 					return (ModelAndView)obj;
 				}else if(obj instanceof String) {
 					return (String)obj;
+					}
 				}
 			}
-		}
+			else if("auth".equals(upmu[0])) { // 배열의 첫방에 업무폴더 이름
+				controller = new AuthController();
+				if("login".equals(upmu[1])) {
+					// 파라미터로 원본을 넘긴다
+					obj = controller.login(req, res);
+					if(obj instanceof String) {
+						return (String)obj;
+					}
+				}
+			}
 		return obj;
-	}
+	}//////////////////// end of getController
 }

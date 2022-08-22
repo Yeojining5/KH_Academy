@@ -16,6 +16,7 @@
 	 		<%@ include file="top.jsp" %>
 	 		</td>
 	 	</tr>
+	 	
 	 	<tr>
 	 	<!----------------- [[컨텐츠 화면 출력]] ----------------->
 			<td align="center" width="1000px" height="400px">
@@ -24,15 +25,15 @@
 %>			
 			<%@ include file="main.jsp" %>
 <%
-	} else if("intro".equals(menu)) {
+	} else if("intro".equals(menu)) {	// index.jsp?menu=intro
 %>			
 			<%@ include file="intro.jsp" %>
 <%
-	} else if("notice".equals(menu)) {
+	} else if("notice".equals(menu)) {	// index.jsp?menu=notice
 %>	
 			<%@ include file="notice.jsp" %>
 <%
-	} else if("qna".equals(menu)) {
+	} else if("qna".equals(menu)) {		// index.jsp?menu=qna
 %>	
 			<%@ include file="qna.jsp" %>
 <%
@@ -40,12 +41,14 @@
 %>				
 			</td>
 		<!----------------- [[컨텐츠 화면 출력]] ----------------->
+		
 		<!----------------- [[메뉴 화면 출력]] ----------------->
 			<td align="center" width="200px" height="400px">
 			<%@ include file="menu.jsp" %>
 			</td>
 		<!----------------- [[메뉴 화면 출력]] ----------------->
 	 	</tr>
+	 	
 	 	<tr>
 	 		<td colspan="2" width="1200px" height="50px">
 	 		<%@ include file="bottom.jsp" %>

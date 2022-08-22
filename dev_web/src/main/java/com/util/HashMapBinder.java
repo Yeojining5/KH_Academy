@@ -31,7 +31,7 @@ public class HashMapBinder {
 	int maxSize = 5*1024*1024;//5MB
 	public HashMapBinder(HttpServletRequest req) {
 		this.req = req;
-		realFolder = "C:\\Users\\user\\git\\Yeojin\\dev_web\\src\\main\\webapp\\pds";
+		realFolder = "C:\\Users\\user1\\git\\dev_java20220415\\dev_web\\src\\main\\webapp\\pds";
 	}
 	public void multiBind(Map<String,Object> pMap) {
 		pMap.clear();

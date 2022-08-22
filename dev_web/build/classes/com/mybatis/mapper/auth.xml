@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.authMapper">
+	<select resultType="string" parameterType="map" id="login">
+		SELECT mem_name 
+		FROM member 
+		WHERE mem_id = #{mem_id} 
+		AND mem_pw = #{mem_pw} 
+	</select>
+</mapper>
