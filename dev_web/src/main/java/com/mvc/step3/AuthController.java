@@ -3,6 +3,7 @@ package com.mvc.step3;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -70,6 +71,23 @@ public class AuthController implements Controller3 {
 		HttpSession session = req.getSession();
 		s_name = authLogic.login(pMap);
 		session.setAttribute("s_name", s_name);
+		String path = "redirect:index.jsp";
+		
+		return path;
+	}
+
+	@Override
+	public Object clogin(HttpServletRequest req, HttpServletResponse res) {
+		logger.info("clogin 호출 성공");
+		Map<String,Object> pMap = new HashMap<>();
+		HashMapBinder hmb = new HashMapBinder(req);
+		hmb.bind(pMap);
+		String s_name = null;
+		s_name = authLogic.login(pMap);
+		Cookie c = new Cookie("c_name", s_name);
+		c.setPath("/");
+		c.setMaxAge(60*3);
+		res.addCookie(c);
 		String path = "redirect:index.jsp";
 		
 		return path;

@@ -15,11 +15,11 @@
  // 이것들과 관련된 모든 API 는 찾아보고 테스트해볼 것.
  	String s_name = (String)session.getAttribute("s_name");
  	Integer s_age = (Integer)session.getAttribute("s_age");
- 	out.print("세션에 담긴값들 "+s_name+","+s_age);
+ 	//out.print("세션에 담긴값들 "+s_name+","+s_age);
  	Enumeration<String> snames = session.getAttributeNames();
  	while(snames.hasMoreElements()) {
  		String name = snames.nextElement();
- 		out.print(name+"<br />");
+ 		//out.print(name+"<br />");
  	}
 %>
 

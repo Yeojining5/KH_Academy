@@ -8,7 +8,7 @@
 	
 	// forward와 상관없이 값을 유지(사용) 가능함
 	// scope : request
-	// 페이지 안에서만 쓰이는 request는 유용하지 않다 forward! (senRedirect를 말하는 사람은 기초가X)
+	// 페이지 안에서만 쓰이는 request는 유용하지 않다 forward! (sendRedirect를 말하는 사람은 기초가X)
 	// session은 forward(req,res)이든 sendRedirect이든 상관없이 그 시간 동안 무조건 유지된다
 	// 
 	session.setAttribute("s_name", s_name);

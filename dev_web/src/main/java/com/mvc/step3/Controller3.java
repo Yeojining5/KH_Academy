@@ -10,14 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 // 메소드 뒤에 좌중괄호 우중괄호가 없다. - 세미콜론으로 끝났다 - 추상메소드
 // 명세서이다 - 반드시 구현해 주었으면 해
 // 통일감
+// 새로고침 - 조회 - 왜 명세서이다.- 인터페이스의 역할이다 - 스프링은 설치하는게 아니라 이런 인터페이스를 제공함
 public interface Controller3 {
 	public ModelAndView execute(HttpServletRequest req, HttpServletResponse res, Map<String,Object> pMap);
 	public String execute(HttpServletRequest req, HttpServletResponse res);
-	// 새로고침 - 조회 - 왜 명세서이다.- 인터페이스의 역할이다 - 스프링은 설치하는게 아니라 이런 인터페이스를 제공함
+	
+	// 세션 로그인
 	public Object login(HttpServletRequest req, HttpServletResponse res);
 	public Object boardList(HttpServletRequest req, HttpServletResponse res);
 	public Object boardDetail(HttpServletRequest req, HttpServletResponse res);
 	public Object boardInsert(HttpServletRequest req, HttpServletResponse res);
 	public Object boardUpdate(HttpServletRequest req, HttpServletResponse res);
 	public Object boardDelete(HttpServletRequest req, HttpServletResponse res);
+	
+	// 쿠키 로그인
+	public Object clogin(HttpServletRequest req, HttpServletResponse res);
 }
