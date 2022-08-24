@@ -31,8 +31,8 @@
 <%
 	} else {
 %>		
-	<%= c_name %> 님 환영합니다.
-	<input type="button" value="로그인" onclick="logout()">
+	<%=c_name %> 님 환영합니다.
+	<input type="button" value="로그아웃" onclick="logout()">
 <%
 	}
 %>
