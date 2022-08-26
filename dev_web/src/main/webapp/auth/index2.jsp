@@ -21,23 +21,16 @@
 	
 </head>
 <body>
-
 <script>
 	//DOM트리가 다 그려 진거니? - yes
 	$(document).ready(function() {
-		$("#dg_member").datagrid({
-			columns : [[
-				{field: 'mem_id', title:'아이디', width: 100},
-				{field: 'mem_name', title:'이름', width: 120},
-				{field: 'mem_address', title:'주소', width: 200}
-			]]
-			,data: [
-				{mem_id: 'tomato', mem_name:'이순신', mem_address: '서울시 마포구 공덕동'},				
-				{mem_id: 'apple', mem_name:'강감찬', mem_address: '서울시 강남구 대치동'},				
-				{mem_id: 'nice', mem_name:'김유신', mem_address: '서울시 강남구 역삼동'}				
-			]
-		}); ///// end of datagrid
-	}); ///// end of ready(function)
+		$( "#tre_gym_easyui_tree_2 span" ).click(function() {
+			  alert("여기");
+			});
+		$( ".member li" ).click(function(e) {
+			  console.log( "call e :"+e.target.textContent );
+			});
+	});
 </script>
 
     <div style="margin:20px 0;"></div>
@@ -137,13 +130,11 @@
 
 
         <div data-options="region:'center',title:'TerrGYM System',iconCls:'icon-ok'">
-            <div style="margin: 5px 0;"></div>
-            	&nbsp;Home	> 회원관리	> 회원목록
-            <hr>
-            <div style="margin: 20px 0;"></div>
-            <div id="dg_member">
-            	
-            </div>
+            <p style="margin: 20px 10px">
+	            여기는 터짐 시스템 입니다. <br>
+	            로그인 후 사용하세요. <br>
+            </p>
+            <div id="d_memberList">회원목록</div>
         </div>
     </div>
  
