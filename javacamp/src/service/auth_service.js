@@ -3,7 +3,7 @@ import {
   signInWithPopup,
   GithubAuthProvider,
   GoogleAuthProvider,
-} from "https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js";
 export default class AuthService {
   constructor() {
     this.firebaseAuth = getAuth();

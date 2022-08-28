@@ -1,20 +1,34 @@
-import React from 'react';
-import Top from '../header/Top';
-import Bottom from '../footer/Bottom';
-import { Carousel } from 'react-bootstrap';
+import React, { useEffect } from "react";
+import { Carousel } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import Bottom from "../footer/Bottom";
+import Top from "../header/Top";
 
+function Main({ authService }) {
+  let userId = useParams();
+  const navigate = useNavigate();
+  const onLogout = () => {
+    console.log("Main onLogout 호출 성공");
+    authService.logout();
+  };
 
-function Main(props) {
+  useEffect(() => {
+    authService.onAuthChange((user) => {
+      if (!user) {
+        navigate("/"); //Login.jsx
+      }
+    });
+  });
+
   return (
     <>
-      <Top />
-
+      <Top userId={userId} onLogout={onLogout} />
       <div className="container">
         <Carousel>
           <Carousel.Item>
             <img
               className="d-block w-100"
-              src={process.env.PUBLIC_URL+"/images/camping-night"}
+              src={process.env.PUBLIC_URL + "/images/camping-goods.jpg"}
               alt="First slide"
             />
             <Carousel.Caption>
@@ -25,7 +39,7 @@ function Main(props) {
           <Carousel.Item>
             <img
               className="d-block w-100"
-              src={process.env.PUBLIC_URL+"/images/camping-goods"}
+              src={process.env.PUBLIC_URL + "/images/camping-night2.jpg"}
               alt="Second slide"
             />
 
@@ -37,7 +51,7 @@ function Main(props) {
           <Carousel.Item>
             <img
               className="d-block w-100"
-              src={process.env.PUBLIC_URL+"/images/mam-person"}
+              src={process.env.PUBLIC_URL + "/images/man-person.jpg"}
               alt="Third slide"
             />
 
@@ -50,7 +64,6 @@ function Main(props) {
           </Carousel.Item>
         </Carousel>
       </div>
-
       <Bottom />
     </>
   );

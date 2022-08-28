@@ -1,12 +1,12 @@
-import React from 'react';
-import Top from './../header/Top';
-import Bottom from './../footer/Bottom';
+import React from "react";
+import Bottom from "../footer/Bottom";
+import Top from "../header/Top";
 
 function HackerNews(props) {
   return (
     <>
       <Top />
-        <div>해커뉴스</div>
+      <div>해커뉴스</div>
       <Bottom />
     </>
   );
