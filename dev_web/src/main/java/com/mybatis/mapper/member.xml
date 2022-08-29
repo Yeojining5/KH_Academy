@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.memberMapper">
+	<select id="memberList" parameterType="java.util.Map" resultType="map">
+        SELECT mem_id, mem_pw, mem_name, mem_address
+          FROM member  
+      ORDER BY mem_name asc
+	</select>
+</mapper>

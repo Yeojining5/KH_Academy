@@ -18,6 +18,7 @@
 	<mappers>
 		<mapper resource="com/mybatis/mapper/board.xml" />
 		<mapper resource="com/mybatis/mapper/auth.xml" />
+		<mapper resource="com/mybatis/mapper/member.xml" />
 <!-- 		<mapper resource="address/view3/board.xml" /> -->
 <!-- 		<mapper resource="address/view3/board.xml" /> -->
 <!-- 		<mapper resource="address/view3/board.xml" /> -->

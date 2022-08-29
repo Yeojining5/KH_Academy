@@ -33,7 +33,7 @@
 		   AND b_step > #{b_step}
 	</update>
 	<select id="getBNo" parameterType="map" resultType="int">
-		SELECT NVL((SELECT /*+index_desc(board_master_t XPKBOARD_MASTER_T)*/ b_no
+		SELECT NVL((SELECT /*+index_desc(board_master_t BOARD_MASTER_NO_PK)*/ b_no
 		             FROM board_master_t
 		            WHERE rownum = 1),0)+1 b_group
 		  FROM dual   

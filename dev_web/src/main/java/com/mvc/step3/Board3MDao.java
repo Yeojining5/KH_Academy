@@ -12,7 +12,9 @@ import com.util.MyBatisCommonFactory;
 
 public class Board3MDao {
 	Logger logger = Logger.getLogger(Board3MDao.class);
+	// 물리적인 DB서버와 연결
 	SqlSessionFactory sqlSessionFactory = null;
+	// 쿼리문 요청과 커밋 그리고 롤백 처리
 	SqlSession sqlSession = null;
 	
 	public Board3MDao() {
