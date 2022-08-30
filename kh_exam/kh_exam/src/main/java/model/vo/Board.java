@@ -1,39 +1,32 @@
 package model.vo;
 
 public class Board {
-	private int boardNum;
-	private String boardWriter;
-	private String boardTitle;
-	private String boardContent;
-	private String boardDate;
-	public int getBoardNum() {
-		return boardNum;
+	private int id = 0;
+	private String title = null;
+	private String writer = null;
+	private String content = null;
+	public String getTitle() {
+		return title;
 	}
-	public void setBoardNum(int boardNum) {
-		this.boardNum = boardNum;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public String getBoardWriter() {
-		return boardWriter;
+	public String getWriter() {
+		return writer;
 	}
-	public void setBoardWriter(String boardWriter) {
-		this.boardWriter = boardWriter;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
-	public String getBoardTitle() {
-		return boardTitle;
+	public String getContent() {
+		return content;
 	}
-	public void setBoardTitle(String boardTitle) {
-		this.boardTitle = boardTitle;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public String getBoardContent() {
-		return boardContent;
+	public int getId() {
+		return id;
 	}
-	public void setBoardContent(String boardContent) {
-		this.boardContent = boardContent;
-	}
-	public String getBoardDate() {
-		return boardDate;
-	}
-	public void setBoardDate(String boardDate) {
-		this.boardDate = boardDate;
+	public void setId(int id) {
+		this.id = id;
 	}
 }

@@ -1,9 +1,16 @@
 package model.vo;
 
 public class Notice {
+	private int id = 0;
 	private String title = null;
 	private String writer = null;
 	private String content = null;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -22,5 +29,4 @@ public class Notice {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
 }

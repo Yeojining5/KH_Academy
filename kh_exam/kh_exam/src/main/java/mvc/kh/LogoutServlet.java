@@ -17,12 +17,11 @@ public class LogoutServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 	throws ServletException, IOException{
 		logger.info("doGet 호출 성공");	
-		//jsp에서 세션은 내장객체로 제공되지만 서블릿에서는 직접 인스턴스화를 해야 함
 		HttpSession session = req.getSession();
 		//세션에 담긴 모든 정보 삭제할 때 사용
+		session.removeAttribute("loginUser");
 		//session.invalidate();
 		//세션 하나만 삭제할 때는
-		session.removeAttribute("loginUser");
 		res.sendRedirect("./index.jsp");
 	}
 	@Override

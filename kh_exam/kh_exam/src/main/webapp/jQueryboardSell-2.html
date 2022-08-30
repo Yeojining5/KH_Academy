@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>보드판매량 집계하기</title>
+<style>
+    body{
+        font-family: 'Courier New', Courier, monospace;
+        font-size: small;
+        text-align: center;
+    }
+    table{
+        margin-left: auto;
+        margin-right: auto;
+        border: thin solid black;
+        font-size: small;
+    }
+    th,td{
+        border: thin dotted gray;
+        padding: 5px;
+        text-align: center;
+    }
+    th{
+        background-color: #FFAAAA;
+    }
+</style>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script>
+    //현재 바라보는 경로 ajax폴더 추가
+    function getBoardSold(){
+    	$.ajax({
+    		method:"get"
+    	   ,url:"./boardSellAction.jsp?"+new Date().getTime()
+    	   ,success:function(result){
+    		   //alert("result:"+result);
+               const boardSoldEl = $("#boardSold");
+               //replaceText(boardSoldEl,newTotal);
+               $("#boardSold").text(result);
+               //구매가 가져오기
+               const cost = $('#cost').text();
+               //alert($('#cost').text());
+               //소비자가 가져오기
+               const price = $('#price').text();
+               //보드 한개당 마진 계산
+               const cashPerBoard = price-cost;
+               //총마진 구하기
+               const cash =  cashPerBoard*result;
+               //alert("총마진:"+cash);
+               $("#cash").text(cash);    		   
+    	   }
+    	});
+    }
+</script>
+</head>
+<body>
+<table width="300px" height="80px">
+    <tr>
+        <td align="center" colspan="2">보드판매집계</td>
+    </tr>
+    <tr>
+        <th width="120px">보드판매량</th>
+        <!-- 텍스트노드는 태그이름은 없고 태그값만 있다. -->
+        <td width="180px"><span id="boardSold">10</span></td>
+    </tr>
+    <tr>
+        <th width="120px">구매가</th>
+        <td width="180px"><span id="cost">700</span></td>
+    </tr>
+    <tr>
+        <th width="120px">소비자가</th>
+        <td width="180px"><span id="price">800</span></td>
+    </tr>        
+</table>
+<h2>마진금액 : <span id="cash">0</span></h2>
+<button onclick="getBoardSold()">마진금액은?</button>
+</body>
+</html>

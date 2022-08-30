@@ -1,21 +1,13 @@
+<%@page import="java.util.List"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="java.sql.Date"%>
+<%@page import="com.web.entity.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%
-String url = "jdbc:oracle:thin:@192.168.0.4:1521:orcl11";
-String sql = "SELECT * FROM NOTICE";
-
-Class.forName("oracle.jdbc.driver.OracleDriver");
-Connection con = DriverManager.getConnection(url,"scott","tiger");
-Statement st = con.createStatement();
-ResultSet rs = st.executeQuery(sql);
-%>
-
-
 <html>
 
 <head>
@@ -188,20 +180,25 @@ ResultSet rs = st.executeQuery(sql);
 					</thead>
 					<tbody>
 					
-					<% while(rs.next()) { %>
+					<%
+					// request에서 값을 꺼내오기 -> List형식으로 지역변수화(스크립틀릿에서 사용하기위해)
+					// object 형식이므로 형변환 필요
+					// for문을 통해 꺼낸 값을 4대 저장소에 담기! -> page저장소가 적합\
+					// 담아준 후에 ${} 형식을 사용할 수 있게됨
+						List<Notice> list = (List<Notice>)request.getAttribute("list");
+						for(Notice n : list) {
+							pageContext.setAttribute("n", n);
+					%>
 							
 					<tr>
-						<td><%=rs.getInt("ID")%></td>
-						<td class="title indent text-align-left"><a href="detail?id=<%=rs.getInt("ID")%>"><%=rs.getString("TITLE")%></a></td>
-						<td><%=rs.getString("WRITER_ID")%></td>
-						<td>
-							<%=rs.getDate("REGDATE")%>	
-						</td>
-						<td><%=rs.getInt("HIT")%></td>
+						<td>${n.id}</td>
+						<td class="title indent text-align-left"><a href="detail?id=${id}"></a>${n.title}</td>
+						<td>${n.writerId}</td>
+						<td>${n.regdate}</td>
+						<td>${n.hit}</td>
 					</tr>
 				
-					
-					<% } %>	
+					<% } %>
 					
 					</tbody>
 				</table>
@@ -275,9 +272,3 @@ ResultSet rs = st.executeQuery(sql);
     </body>
     
     </html>
-    
-   <%
-   rs.close();
-   st.close();
-   con.close();
-   %>

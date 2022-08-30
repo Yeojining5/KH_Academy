@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자동갱신 페이지 구현</title>
+<!-- $ undefine 에러 메시지는 jquery api를 import하지 않았을 때 발생함. -->
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	<script type="text/javascript">
+		function autoReload(){
+			$.ajax({
+				method:"get"
+			   ,url:"newsData.jsp"
+			   ,dataType:"html" /* 타입은 생략할 수 있음. */
+			   ,success:function(result){//result는 응답페이지의 출력문자열담김.
+				   //alert(result);
+			   //innerHTML -> html():jquery api, innerText -> text():jquery api지원;
+				   $("#d_news").html(result);
+			   }
+			   ,fail:function(xhrObject,textStatus){
+				   alert( "Request failed: " + textStatus );
+				   alert(xhrObject.responseText);
+			   }
+			});
+		}
+	</script>	
+</head>
+<!-- onLoad 이벤트는 해당 페이지의 돔 구성이 완료되었을 때 발생함. -->
+<body>
+<script type="text/javascript">
+	$(document).ready(function (){
+		var watch;
+		function start(){
+			//첫번째 파라미터는 메소드 호출하기
+			//두번째 파라미터는 지연 시간 주기(밀리세크 단위)
+			//아래 경우 3초마다 한번씩 메소드가 호출 됨.
+			watch = setInterval(autoReload, 3000);
+		}	
+		start();
+	});
+</script>
+<h3>헤드라인 뉴스</h3>
+<!-- 뉴스 전광판 추가 -->
+<div id="d_news">뉴스 준비중.....</div>
+<button onclick="start()">시작</button>
+</body>
+</html>
+
+
+

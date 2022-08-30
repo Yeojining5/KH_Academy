@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.mybatis.mapper.TestMapper"> 
+ <select id="today" parameterType="int" resultType="string"> 
+	SELECT TO_CHAR(sysdate, 'YYYY-MM-DD') cdate FROM dual
+ </select> 
+ <select id="testList" resultType="map" parameterType="string">
+	select id, name, age from test 
+	 where 1=1
+	<if test="id != null">
+	 AND id = #{value}
+	</if>	 
+ </select>
+ <insert id="testInsert" parameterType="map">
+ 	INSERT INTO test(id,name,age) VALUES(#{id},#{name},#{age})
+ </insert>
+ <update id="testUpdate" parameterType="map">
+	UPDATE test 
+	   SET 
+	<if test="name !=null">
+	       name = #{name},	
+	</if>	   
+	       age = #{age}
+	 WHERE id = #{id} 	
+ </update>
+ <delete id="testDelete2" parameterType="map">
+	DELETE FROM test WHERE id = #{id}  
+ </delete>
+ <delete id="testDelete" parameterType="java.lang.String">
+	DELETE FROM test WHERE id = #{value}  
+ </delete>
+</mapper>
+
+ 

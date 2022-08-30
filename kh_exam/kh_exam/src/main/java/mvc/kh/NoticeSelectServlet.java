@@ -3,7 +3,6 @@ package mvc.kh;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,11 +27,7 @@ public class NoticeSelectServlet extends HttpServlet {
 			page = "/WEB-INF/views/common/errorPage.jsp";
 			
 		}
-		// 별로인 것은 NullPointerException방어코드를 작성할 수 없기 때문에....
-		// 리펙토링
-		//req.getRequestDispatcher(page).forward(req, res);
-		RequestDispatcher view = req.getRequestDispatcher(page);
-		view.forward(req, res);
+		req.getRequestDispatcher(page).forward(req, res);
 	}
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res)

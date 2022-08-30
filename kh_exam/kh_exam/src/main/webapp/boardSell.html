@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>보드판매량 집계하기</title>
+<style>
+    body{
+        font-family: 'Courier New', Courier, monospace;
+        font-size: small;
+        text-align: center;
+    }
+    table{
+        margin-left: auto;
+        margin-right: auto;
+        border: thin solid black;
+        font-size: small;
+    }
+    th,td{
+        border: thin dotted gray;
+        padding: 5px;
+        text-align: center;
+    }
+    th{
+        background-color: #FFAAAA;
+    }
+</style>
+<script type="text/javascript" src="/js/jsutil.js"></script>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script>
+//비동기 통신객체를 활용하여 부분페이지 갱신처리를 해본다.
+//XMLHttpRequest
+//비동기 통신객체 생성함수
+    //전변선언- 비동기통신객체 변수
+    //사용자와 웹서버[톰캣서버,JEUS, Webspere]사이에 통신을 지원하는 객체
+    var xhrObject = null;
+    function createRequest(){
+        try{
+            xhrObject = new XMLHttpRequest();
+        }catch(trymicrosoft){
+            xhrObject = null;
+        }
+        if(xhrObject==null){
+            alert("비동기 통신객체 생성 실패!!!");
+        }
+    }    
+    //현재 바라보는 경로 ajax폴더 추가
+    function getBoardSold(){
+        createRequest();
+        var url = "./boardSellAction.jsp?"+new Date().getTime();
+        //첫번째:전송방식 - get|post
+        //두번째:이 요청을 처리할 페이지 이름
+        //세번째:비동기-true[권장], 동기-false
+        xhrObject.open("GET",url,true);
+        //서버와의 통신에 따라 상태(요청,요청준비,다운로드중,다운로드완료)가 바뀌게 되고 
+        //이벤트 핸들러 속성 추가 - 콜백함수이름 지정
+        xhrObject.onreadystatechange = account_process;
+        xhrObject.send(null);//get방식인 경우 null, post일땐 값
+    }
+/*
+readyState:onreadystatechange에서 사용할 수 있는 HTTP요청 상태의 코드값임.
+2- HTTP요청을 보내어 처리하는 중
+3- 데이터를 받고 있는 중
+4- 데이터를 완전히 받은 상태
+*/
+    //콜백함수 구현하기
+    function account_process(){
+        //alert(xhrObject.readyState);
+        if(xhrObject.readyState==4){
+            if(xhrObject.status==200){//204
+                var newTotal = xhrObject.responseText;
+                //alert(newTotal);//
+                //보드판매량
+                var boardSoldEl = $("#boardSold");
+                //replaceText(boardSoldEl,newTotal);
+                $("#boardSold").text(newTotal);
+                //구매가 가져오기
+                var costEl = document.getElementById("cost");
+                var cost = getText(costEl);
+                //소비자가 가져오기
+                var priceEl = document.getElementById("price");
+                var price = getText(priceEl);
+                //보드 한개당 마진 계산
+                var cashPerBoard = price-cost;
+                //총마진 구하기
+                var cash =  cashPerBoard*newTotal;
+                //alert("총마진:"+cash);
+                $("#cash").text(cash);
+            }
+        }
+    }
+</script>
+</head>
+<body>
+<table width="300px" height="80px">
+    <tr>
+        <td align="center" colspan="2">보드판매집계</td>
+    </tr>
+    <tr>
+        <th width="120px">보드판매량</th>
+        <!-- 텍스트노드는 태그이름은 없고 태그값만 있다. -->
+        <td width="180px"><span id="boardSold">10</span></td>
+    </tr>
+    <tr>
+        <th width="120px">구매가</th>
+        <td width="180px"><span id="cost">700000</span></td>
+    </tr>
+    <tr>
+        <th width="120px">소비자가</th>
+        <td width="180px"><span id="price">850000</span></td>
+    </tr>        
+</table>
+<h2>마진금액 : <span id="cash">1500000</span></h2>
+<button onclick="getBoardSold()">마진금액은?</button>
+</body>
+</html>

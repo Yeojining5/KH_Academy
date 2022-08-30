@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,10 +32,6 @@ public class BoardUpdateServlet extends HttpServlet {
 		logger.info("수정처리 결과 ==> "+result);
 		if(result == 1) {
 			res.sendRedirect("./detail.bo");
-		}else {
-			req.setAttribute("msg", "게시글 수정 실패");
-			RequestDispatcher view = req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp");
-			view.forward(req, res);
 		}
 	}
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
@@ -55,10 +50,6 @@ public class BoardUpdateServlet extends HttpServlet {
 		logger.info("수정처리 결과 ==> "+result);
 		if(result == 1) {
 			res.sendRedirect("./detail.bo?id="+id);
-		}else {
-			req.setAttribute("msg", "게시글 수정 실패");
-			RequestDispatcher view = req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp");
-			view.forward(req, res);
 		}
 	}	
 }

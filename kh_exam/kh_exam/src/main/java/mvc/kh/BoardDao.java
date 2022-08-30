@@ -22,7 +22,7 @@ public class BoardDao {
 		StringBuilder sql = new StringBuilder();
 		sql.append("update khboard set title=?");
 		sql.append("                ,content=?");
-		sql.append(" where22222 id=?");
+		sql.append(" where id=?");
 		try {
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, board2.getTbTitle());
@@ -31,9 +31,7 @@ public class BoardDao {
 			result = pstmt.executeUpdate();
 			logger.info("result : "+result);
 		} catch (SQLException se) {
-			logger.info("[[query]] : "+sql.toString());
-			//if문에서 return을 빠져나감
-			result = 0;
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -48,9 +46,9 @@ public class BoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			int i=0;
-			pstmt.setString(++i, board.getBoardWriter());
-			pstmt.setString(++i, board.getBoardTitle());
-			pstmt.setString(++i, board.getBoardContent());
+			pstmt.setString(++i, board.getWriter());
+			pstmt.setString(++i, board.getTitle());
+			pstmt.setString(++i, board.getContent());
 			result = pstmt.executeUpdate();
 			logger.info("result가 1이면 등록 성공 0이면 실패 ===> "+ result);
 		} catch (SQLException se) {
@@ -73,10 +71,10 @@ public class BoardDao {
 			Board board = null;
 			while(rs.next()) {
 				board = new Board();
-				board.setBoardNum(rs.getInt("boardnum"));
-				board.setBoardTitle(rs.getString("boardtitle"));
-				board.setBoardWriter(rs.getString("boardwriter"));
-				board.setBoardContent(rs.getString("boardcontent"));
+				board.setId(rs.getInt("boardnum"));
+				board.setTitle(rs.getString("boardtitle"));
+				board.setWriter(rs.getString("boardwriter"));
+				board.setContent(rs.getString("boardcontent"));
 				boardList.add(board);
 			}
 			logger.info("boardList ===> "+ boardList);

@@ -1,0 +1,141 @@
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>Ajax-powered Coffee Maker</title>
+  <link rel="stylesheet" type="text/css" href="coffee.css?12" />
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script language="javascript">
+  	function getSize(){
+  		//const arr = []; const array = new Array[]
+  		const sizeGroup = document.forms[0].size;// => 3
+  		for(let i=0;i<sizeGroup.length;i++){
+  		  if(sizeGroup[i].checked==true){
+  		     return sizeGroup[i].value;
+  		  }
+  		}  		
+  	}	  	
+  	function getBeverage(){
+  		const beverageGroup = document.forms[0].beverage;// => 3
+  		for(let i=0;i<beverageGroup.length;i++){
+  		  if(beverageGroup[i].checked==true){
+  		     return beverageGroup[i].value;
+  		  }
+  		}   		
+  	}
+  	function orderCoffee(){
+  		//주문자의 이름 정보 출력
+  		const name = document.getElementById("name").value;
+  		const size = getSize();
+  		const beverage = getBeverage();
+  		alert(name+", "+size+", "+beverage);	
+  		//insert here
+  		//첫번째 머신의 아이디값 가져오기
+  		const status = $('#coffmaker1Status').text();
+  		if(status=="Idle"){
+  			//insert here - 누구님 컵사이즈, 커피를 준비중입니다.
+  			 $('#coffmaker1Status').text(name+"님의 "+beverage+"("+size+")"+"를 준비중입니다.");
+  			//커피 주문서에 작성된 내용을 초기화 함.
+  			document.forms[0].reset();
+  			//커피를 내리는 시늉을 하는 jsp페이지의 url정보를 담음.
+  			const url = "coffeeMaker.jsp?coffeemaker=1&name="+name+"&timestamp="+new Date().getTime();
+  	  		$.ajax({
+  	  			url: url,
+  	  			method: 'get',
+  	  			success:function(data){
+  	  				alert(data);//1 주문자명
+  	  				const machine = data.substring(0,1);//1
+  	  				const name = data.substring(1,data.length);
+  	  				if(machine == "1"){
+  	  					console.log('머신1');
+  	  					//주문한 커피가 나왔으므로 머신 상태를 Idle로 변경함.			
+  	  			  		$('#coffmaker1Status').text("Idle");
+  	  				}
+  	  				else{//2번 머신인 경우
+  	  					console.log('머신2');	 	
+  	  			  		$('#coffeemaker2-status').text("Idle");
+  	  				}  
+  	  				alert(name+", your coffee is ready!");
+  	  			}
+  	  		});  			
+  		}
+  		else{
+  			//두번째 머신의 아이디값 가져오기
+  	  		const status = $('#coffeemaker2-status').text();
+  			if(status=="Idle"){
+  				$('#coffeemaker2-status').text(name+"님의 "+beverage+"("+size+")"+"를 준비중입니다.");
+  				//두번째 주문이 처리가 된 경우임.
+  				document.forms[0].reset();
+  				const url = "coffeeMaker.jsp?coffeemaker=2&name="+name+"&timestamp="+new Date().getTime();
+  	  	  		$.ajax({
+  	  	  			url: url,
+  	  	  			method: 'get',
+  	  	  			success:function(data){
+  	  	  				alert(data);//1 주문자명
+  	  	  				const machine = data.substring(0,1);//1
+  	  	  				const name = data.substring(1,data.length);
+  	  	  				if(machine == "1"){
+  	  	  					//주문한 커피가 나왔으므로 머신 상태를 Idle로 변경함.	
+  	  	  			  		$('#coffmaker1Status').text("Idle");
+  	  	  				}
+  	  	  				else{//2번 머신인 경우
+  	  	  			  		$('#coffeemaker2-status').text("Idle");
+  	  	  				}  	
+  	  	  				alert(name+", your coffee is ready!");
+  	  	  			}
+  	  	  		});    				
+  				
+  			}else{//두 대가 다 일하는 경우
+  				alert("Sorry! Both coffee makers are busy. \n"
+  					 +"Try again later.");
+  			}
+  		}
+  	}
+  </script>
+ </head>
+ <body>
+   <div id="header">
+    <h1>Ajax-powered Coffee Maker</h1>
+   </div>
+  <div id="wrapper">
+   <div id="coffeemaker1">
+    <h2>Coffee Maker #1</h2>
+    <p><img src="images/CoffeeMaker1.gif" alt="Coffee Maker #1" /></p>
+    <div id="coffmaker1Status">Idle</div>
+   </div>
+   <div id="coffeeorder">
+    <p><img src="images/coffeeMugWithBeans.jpg" alt="Coffee Pot 1" /></p>
+    <h2>Place your coffee order here:</h2>
+    <div id="controls1">
+     <form action="#">
+      <p>Name: <input type="text" name="name" id="name" /></p>
+      <h3>Size</h3>
+      <p> 
+       <input type="radio" name="size" 
+              value="small" checked="true">Small</input>&nbsp;&nbsp;
+       <input type="radio" name="size" value="medium">Medium</input>&nbsp;&nbsp;
+       <input type="radio" name="size" value="large">Large</input>
+      </p>
+      <h3>Beverage</h3>
+      <p> 
+       <input type="radio" name="beverage" 
+              value="mocha" checked="true">Mocha</input>&nbsp;&nbsp;
+       <input type="radio" name="beverage" 
+              value="latte">Latte</input>&nbsp;&nbsp;
+       <input type="radio" name="beverage" 
+              value="cappucino">Cappucino</input>
+      </p>
+      <p>
+       <input type="button" onClick="orderCoffee()" value="Order Coffee" />
+      </p>
+     </form>
+    </div>
+   </div>
+   <div id="coffeemaker2">
+    <h2>Coffee Maker #2</h2>
+    <p><img src="images/CoffeeMaker2.gif" alt="Coffee Maker #2" /></p>
+    <div id="coffeemaker2-status">Idle</div>
+   </div>
+   <p id="clear"></p>
+  </div>
+ </body>
+</html>
