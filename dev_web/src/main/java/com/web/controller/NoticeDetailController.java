@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.web.entity.Notice;
+
 @WebServlet("/notice/detail")
 public class NoticeDetailController extends HttpServlet {
 	@Override
@@ -42,12 +44,27 @@ public class NoticeDetailController extends HttpServlet {
 				String files = rs.getString("FILES");
 				String content = rs.getString("CONTENT");
 				
+				Notice notice = new Notice (
+							id,
+							title,
+							regdate,
+							writerId,
+							hit,
+							files,
+							content
+						);
+						
+				request.setAttribute("n", notice);
+				
+				// 먼저, request를 저장소로 이용해 데이터 심어주기
+				/*
 				request.setAttribute("title", title);
 				request.setAttribute("regdate", regdate);
 				request.setAttribute("writerId", writerId);
 				request.setAttribute("hit", hit);
 				request.setAttribute("files", files);
 				request.setAttribute("content", content);
+				*/
 				
 			   rs.close();
 			   st.close();
@@ -61,7 +78,7 @@ public class NoticeDetailController extends HttpServlet {
 		// 서블릿에서 서블릿으로 전이할 수 있는 방법 2가지
 		// redirect forward(이거사용)
 		// forward를 통해 담은 내용을 jsp 뷰단에서 꺼내쓸 수 있다.
-		request.getRequestDispatcher("/notice/detail.jsp")
+		request.getRequestDispatcher("/WEB-INF/view/notice/detail.jsp")
 		.forward(request, response);
 		
 		
