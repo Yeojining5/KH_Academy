@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
 
 import com.util.MyBatisCommonFactory;
+import com.vo.MemberVO;
 
 public class AuthDao {
 	Logger logger = Logger.getLogger(AuthDao.class);
@@ -17,21 +18,23 @@ public class AuthDao {
 	SqlSession sqlSession = null;
 	public AuthDao() {
 		sqlSessionFactory = MyBatisCommonFactory.getSqlSessionFactory();
-	}	
-	public String login(Map<String, Object> pMap) {
+	}
+	
+	public MemberVO login(Map<String, Object> pMap) {
 		logger.info("login 호출 성공 : "+pMap);
-		String s_name = null;
+		MemberVO mVO = null;
 		try {
 			sqlSession = sqlSessionFactory.openSession();
-			s_name = sqlSession.selectOne("login", pMap);
+			// 여기서  One 은 Object를 의미함 - 한개 row만 담을 수 있다.
+			mVO = sqlSession.selectOne("login", pMap);
 			// insert here
-			logger.info(s_name);
+			logger.info(mVO.getMem_name());
 		} catch (Exception e) {
 			logger.info("Exception : "+e.toString());
 		} finally {
 			sqlSession.close();
 		}
-		return s_name;
+		return mVO;
 	}
 
 }

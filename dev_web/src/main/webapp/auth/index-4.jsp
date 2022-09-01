@@ -1,21 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.vo.MemberVO" %>
-
-<%
-	//세션에서 가져오기
-	MemberVO mVO = (MemberVO)session.getAttribute("mVO");
-	String s_id = null;
-	String s_name = null;
-	
-	// NullPointerException 방지
-	if(mVO != null) {
-		s_id = mVO.getMem_id();
-		s_name = mVO.getMem_name();
-	}
-	
-	out.print(s_id+", "+s_name);
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,21 +61,16 @@
 			$("#dg_member").datagrid({
 				//오라클서버에서 요청한 결과를 myBatis를 사용하면 자동으로 컬럼명이 대문자
 				//단 List<XXVO>형태라면 그땐 소문자가 맞다
-				
-			   method:"get"
+				columns:[[
+					{field: 'MEM_ID', title:'아이디', width: 100}
+				   ,{field: 'MEM_NAME', title:'이름', width: 120}
+				   ,{field: 'MEM_ADDRESS', title:'주소', width: 200}
+				   ,{field: 'BUTTON', title:'버튼', width: 120} 
+				]]
+			   ,method:"get"
                ,url:"/member/memberList.pj?type="+type+"&keyword="+keyword // 응답페이지는 JSON포맷의 파일이어야 함 (html이 아니라)
-			
-               ,onDblClickCell: function(index,field,value){
-           			//console.log(index+", "+field+", "+value);
-           			if("BUTTON" == field) {
-           				alert("쪽지쓰기");
-           			}
-           		}
-			
-			});
-			
+			});				
 			$("#d_member").show();
-			
 			//after
 			$("#d_memberInsert").hide();
 		}
@@ -123,6 +102,7 @@
         <div data-options="region:'west',split:true" title="KH정보교육원" style="width:200px;">
 			<div style="margin: 10px 0;"></div>
 <%
+	String s_name = (String)session.getAttribute("s_name");
 	//s_name = "이순신";
 	if(s_name == null){
 %>  			
@@ -246,20 +226,7 @@
 	        		<a id="btn" href="javascript:memberUpdate()" class="easyui-linkbutton" data-options="iconCls:'icon-cut'">수정</a>
 	        		<a id="btn" href="javascript:memberDelete()" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">삭제</a>
 	        	</div>
-	        	
-	        	<!-- 회원목록 출력 -->
-	        	<table id="dg_member" class="easyui-datagrid" style="width:700px;height:250px"
-            			data-options="singleSelect:true,collapsible:true,method:'get'">
-			        <thead>
-			            <tr>
-			                <th data-options="field:'MEM_ID',width:80">아이디</th>
-			                <th data-options="field:'MEM_BANE',width:100">이름</th>
-			                <th data-options="field:'MEM_ADDRESS',width:300,align:'left'">주소</th>
-			                <th data-options="field:'BUTTON',width:80,align:'center'">버튼</th>
-			            </tr>
-			        </thead>
-    			</table>
-    			
+	        	<div id="dg_member"></div>
         	</div>
         	
         	<div id="d_memberInsert">
