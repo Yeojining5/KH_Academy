@@ -87,6 +87,8 @@ public class HandlerMapping {
 			}
 		}
 		else if("auth".equals(upmu[0])) {//배열의 첫방에 업무폴더이름) {
+			// 인스턴스화 -> 스프링에서는 이렇게하지 않음 - 이문장을 안적어도 됨
+			// 문제제기 -> NullPointerException이 발생하잖아 - 스프링이 대신 할게 - 의존성주입 (DI)
 			controller = new AuthController();
 			if("login".equals(upmu[1])) {
 				// 파리미터로 원본을 넘긴다
